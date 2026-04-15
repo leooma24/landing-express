@@ -1,0 +1,85 @@
+---
+/**
+ * Sección TESTIMONIOS con fondo tintado del color primario (5% opacity).
+ * Rompe el ritmo de secciones blancas sin irse a oscuro total.
+ */
+import { business } from '../../config';
+
+const tes = business.testimonios;
+---
+
+{tes && (
+  <section id="testimonios" class="relative section-pad overflow-hidden" style="background-color: rgb(var(--color-primario) / 0.06);">
+    <div
+      aria-hidden="true"
+      class="pointer-events-none absolute -right-32 top-0 h-96 w-96 rounded-full opacity-10 blur-3xl"
+      style="background-color: rgb(var(--color-primario));"
+    ></div>
+    <div
+      aria-hidden="true"
+      class="pointer-events-none absolute -left-32 bottom-0 h-96 w-96 rounded-full opacity-10 blur-3xl"
+      style="background-color: rgb(var(--color-acento));"
+    ></div>
+
+    <div class="wrap relative">
+      <div class="section-divider" data-reveal="fade">
+        <p class="meta-label">{business.mostrarNumeros ? '— · ' : ''}Testimonios</p>
+        <p class="meta-number">{tes.lista.length} · Reseñas 4.9★</p>
+      </div>
+
+      <div class="mb-16 max-w-2xl">
+        <h2 data-reveal="left" class="font-display text-display font-semibold text-texto">
+          {tes.titulo}
+        </h2>
+        {tes.descripcion && (
+          <p data-reveal="left" style="--reveal-delay: 200ms;" class="mt-5 text-base leading-relaxed text-tenue md:text-lg">
+            {tes.descripcion}
+          </p>
+        )}
+      </div>
+
+      <div class="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+        {tes.lista.map((t, i) => (
+          <figure
+            data-reveal="up"
+            style={`--reveal-delay: ${i * 150}ms;`}
+            class="group relative flex flex-col border border-linea bg-fondo p-7 transition duration-500 hover:-translate-y-2 hover:shadow-[0_30px_80px_-20px_rgba(0,0,0,0.15)] md:p-8"
+            style-extra="border-radius: var(--radius-md);"
+          >
+            <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" class="mb-6 h-10 w-10" style="color: rgb(var(--color-primario));">
+              <path d="M14 16c-4 0-6 3-6 7 0 4 3 8 8 8 3 0 5-1 7-4l-3-2c-1 1-2 2-4 2-2 0-4-2-4-4h4c2 0 3-1 3-3s-1-4-5-4zm18 0c-4 0-6 3-6 7 0 4 3 8 8 8 3 0 5-1 7-4l-3-2c-1 1-2 2-4 2-2 0-4-2-4-4h4c2 0 3-1 3-3s-1-4-5-4z" fill="currentColor"/>
+            </svg>
+
+            <blockquote class="flex-1 font-display text-lg font-medium leading-snug text-texto md:text-xl">
+              {t.texto}
+            </blockquote>
+
+            <figcaption class="mt-7 flex items-center gap-3 border-t border-linea pt-5">
+              <div
+                class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full font-display text-sm font-semibold text-fondo"
+                style="background-color: rgb(var(--color-primario));"
+              >
+                {t.nombre.split(' ').map((n) => n[0]).slice(0, 2).join('')}
+              </div>
+              <div class="min-w-0 flex-1">
+                <p class="text-sm font-semibold text-texto">{t.nombre}</p>
+                {t.tratamiento && (
+                  <p class="font-mono text-[11px] text-tenue">{t.tratamiento}</p>
+                )}
+              </div>
+              {t.estrellas && (
+                <p class="font-mono text-xs" style="color: rgb(var(--color-primario));">
+                  {'★'.repeat(t.estrellas)}
+                </p>
+              )}
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+    </div>
+  </section>
+)}
+
+<style is:global>
+  figure[data-reveal] { border-radius: var(--radius-md); }
+</style>

@@ -1,5 +1,19 @@
 ---
 import { business } from '../config';
+
+const navLabels: Record<string, string> = {
+  servicios: 'Servicios',
+  menu: 'Menú',
+  tratamientos: 'Tratamientos',
+  nosotros: 'Nosotros',
+  galeria: 'Galería',
+  testimonios: 'Testimonios',
+  ubicacion: 'Ubicación',
+};
+
+const navItems = business.estructura.orden
+  .filter((id) => id !== 'hero' && id !== 'contacto' && navLabels[id])
+  .map((id) => ({ id, label: navLabels[id] }));
 ---
 
 <header data-header class="sticky top-0 z-40 border-b border-transparent bg-fondo/70 backdrop-blur-xl transition-all duration-300 [&.is-scrolled]:border-texto/10 [&.is-scrolled]:bg-fondo/90">
@@ -9,10 +23,9 @@ import { business } from '../config';
     </a>
 
     <nav class="hidden items-center gap-1 md:flex">
-      <a href="#servicios" class="rounded-full px-3 py-1.5 text-[13px] text-texto/60 transition hover:text-texto">Servicios</a>
-      <a href="#nosotros" class="rounded-full px-3 py-1.5 text-[13px] text-texto/60 transition hover:text-texto">Nosotros</a>
-      <a href="#galeria" class="rounded-full px-3 py-1.5 text-[13px] text-texto/60 transition hover:text-texto">Galería</a>
-      <a href="#ubicacion" class="rounded-full px-3 py-1.5 text-[13px] text-texto/60 transition hover:text-texto">Ubicación</a>
+      {navItems.map((item) => (
+        <a href={`#${item.id}`} class="rounded-full px-3 py-1.5 text-[13px] text-texto/60 transition hover:text-texto">{item.label}</a>
+      ))}
     </nav>
 
     <a href="#contacto" class="btn-primary py-2 text-[13px]">
