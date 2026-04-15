@@ -1,0 +1,60 @@
+---
+/**
+ * Variante DOS-COLUMNAS de Servicios.
+ * Lista compacta en dos columnas, muy editorial, para rubros con muchos servicios.
+ */
+import { business } from '../../config';
+
+const half = Math.ceil(business.servicios.length / 2);
+const col1 = business.servicios.slice(0, half);
+const col2 = business.servicios.slice(half);
+---
+
+<section id="servicios" class="section-pad bg-superficie">
+  <div class="wrap">
+    <div class="section-divider" data-reveal="fade">
+      <p class="meta-label">{business.mostrarNumeros ? '01 · ' : ''}Carta de servicios</p>
+      <p class="meta-number">{business.servicios.length}</p>
+    </div>
+
+    <div class="mb-16 max-w-3xl">
+      <h2 data-reveal="left" class="font-display text-display font-semibold text-texto">
+        Todo lo que tenemos<br /> para ofrecerte.
+      </h2>
+    </div>
+
+    <div class="grid gap-12 md:grid-cols-2 md:gap-16">
+      {[col1, col2].map((col, colIdx) => (
+        <div class="divide-y divide-linea border-t border-linea">
+          {col.map((s, i) => {
+            const globalIdx = colIdx * half + i;
+            return (
+              <div
+                data-reveal={colIdx === 0 ? 'left' : 'right'}
+                style={`--reveal-delay: ${globalIdx * 80}ms;`}
+                class="group flex items-baseline justify-between gap-5 py-6 transition"
+              >
+                <div class="flex items-baseline gap-4">
+                  <span class="font-mono text-xs font-medium tabular-nums text-tenue">
+                    {String(globalIdx + 1).padStart(2, '0')}
+                  </span>
+                  <div>
+                    <h3 class="font-display text-lg font-semibold leading-tight text-texto transition group-hover:text-primario md:text-xl">
+                      {s.titulo}
+                    </h3>
+                    <p class="mt-1.5 text-sm leading-relaxed text-tenue">
+                      {s.descripcion}
+                    </p>
+                  </div>
+                </div>
+                {s.precio && (
+                  <span class="shrink-0 font-mono text-sm tabular-nums text-texto">{s.precio}</span>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

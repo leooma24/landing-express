@@ -1,0 +1,23 @@
+---
+import { business } from '../config';
+---
+
+<header data-header class="sticky top-0 z-40 border-b border-transparent bg-fondo/70 backdrop-blur-xl transition-all duration-300 [&.is-scrolled]:border-texto/10 [&.is-scrolled]:bg-fondo/90">
+  <div class="wrap flex h-16 items-center justify-between">
+    <a href="#hero" class="flex items-baseline gap-2 font-display text-xl font-semibold tracking-tight text-texto">
+      {business.nombre}
+    </a>
+
+    <nav class="hidden items-center gap-1 md:flex">
+      <a href="#servicios" class="rounded-full px-3 py-1.5 text-[13px] text-texto/60 transition hover:text-texto">Servicios</a>
+      <a href="#nosotros" class="rounded-full px-3 py-1.5 text-[13px] text-texto/60 transition hover:text-texto">Nosotros</a>
+      <a href="#galeria" class="rounded-full px-3 py-1.5 text-[13px] text-texto/60 transition hover:text-texto">Galería</a>
+      <a href="#ubicacion" class="rounded-full px-3 py-1.5 text-[13px] text-texto/60 transition hover:text-texto">Ubicación</a>
+    </nav>
+
+    <a href="#contacto" class="btn-primary py-2 text-[13px]">
+      Contactar
+      <span class="font-mono">→</span>
+    </a>
+  </div>
+</header>

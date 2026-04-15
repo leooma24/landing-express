@@ -1,0 +1,138 @@
+---
+import { demos } from '../config';
+
+const palettes: Record<string, { bg: string; overlay: string; label: string; accent: string }> = {
+  dentista: {
+    bg: 'bg-gradient-to-br from-sky-500 via-sky-600 to-cyan-700',
+    overlay: 'bg-[radial-gradient(circle_at_25%_20%,rgba(255,255,255,0.2),transparent_55%)]',
+    label: 'text-sky-100',
+    accent: 'text-yellow-300',
+  },
+  restaurante: {
+    bg: 'bg-gradient-to-br from-blue-900 via-blue-800 to-amber-700',
+    overlay: 'bg-[radial-gradient(circle_at_75%_80%,rgba(252,211,77,0.35),transparent_55%)]',
+    label: 'text-amber-100',
+    accent: 'text-amber-300',
+  },
+  docfacil: {
+    bg: 'bg-gradient-to-br from-emerald-600 via-teal-600 to-indigo-700',
+    overlay: 'bg-[radial-gradient(circle_at_20%_30%,rgba(255,255,255,0.18),transparent_55%)]',
+    label: 'text-emerald-100',
+    accent: 'text-emerald-300',
+  },
+};
+---
+
+<section id="demos" class="bg-bone py-24 md:py-40">
+  <div class="wrap">
+    <div class="mb-16 flex items-baseline justify-between border-b border-ink-200 pb-6">
+      <p class="meta-label">02 · Trabajo</p>
+      <p class="meta-number">{demos.length} proyectos</p>
+    </div>
+
+    <div class="mb-16 max-w-3xl">
+      <h2 class="font-display text-display font-black tracking-tightest">
+        Lo que hemos<br />
+        construido.
+      </h2>
+      <p class="mt-6 text-base text-ink-500 md:text-lg">
+        Landings para negocios locales y productos SaaS completos. Todo publicado, todo funcionando.
+      </p>
+    </div>
+
+    <div class="space-y-16">
+      {demos.map((d, i) => {
+        const palette = palettes[d.slug] ?? palettes.dentista;
+        const esProducto = d.tipo === 'producto';
+        return (
+          <a href={d.url} target="_blank" rel="noopener" class="group block">
+            <div class="mb-6 flex items-baseline justify-between border-b border-ink-200 pb-4">
+              <div class="flex items-baseline gap-6">
+                <span class="font-mono text-sm font-medium text-ink-400 tabular-nums">
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+                <div>
+                  <div class="mb-1 flex items-center gap-3">
+                    <p class="meta-label">{d.rubro}</p>
+                    <span class={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.15em] ${esProducto ? 'bg-coral/10 text-coral' : 'bg-ink-100 text-ink-500'}`}>
+                      {esProducto ? 'Producto' : 'Landing'}
+                    </span>
+                  </div>
+                  <h3 class="font-display text-2xl font-bold tracking-tightest md:text-3xl">{d.negocio}</h3>
+                </div>
+              </div>
+              <span class="hidden items-center gap-2 font-mono text-xs text-ink-400 group-hover:text-coral md:inline-flex">
+                {d.url.replace('https://', '')}
+                <span class="transition group-hover:translate-x-1">↗</span>
+              </span>
+            </div>
+
+            <div class="overflow-hidden rounded-2xl border border-ink-200 bg-ink-900 shadow-[0_30px_80px_-20px_rgba(10,10,10,0.2)] transition group-hover:shadow-[0_40px_100px_-15px_rgba(10,10,10,0.3)]">
+              <div class="flex h-9 items-center gap-1.5 border-b border-ink-700 bg-ink-800 px-4">
+                <span class="h-2.5 w-2.5 rounded-full bg-ink-600"></span>
+                <span class="h-2.5 w-2.5 rounded-full bg-ink-600"></span>
+                <span class="h-2.5 w-2.5 rounded-full bg-ink-600"></span>
+                <div class="ml-4 flex-1">
+                  <div class="mx-auto w-fit rounded-md bg-ink-700 px-3 py-1 font-mono text-[10px] text-ink-300">
+                    {d.url.replace('https://', '')}
+                  </div>
+                </div>
+              </div>
+
+              {d.imagen ? (
+                <div class="relative aspect-[16/9] overflow-hidden bg-ink-800">
+                  <img
+                    src={d.imagen}
+                    alt={`Screenshot de ${d.negocio}`}
+                    class="h-full w-full object-cover object-top transition duration-700 group-hover:scale-[1.02]"
+                    loading="lazy"
+                  />
+                  <div class="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-ink-900/30 to-transparent"></div>
+                  <div class="absolute left-6 top-6 flex items-center gap-2 rounded-full bg-ink-900/60 px-3 py-1.5 backdrop-blur">
+                    <span class="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400"></span>
+                    <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-white">Producto en vivo</span>
+                  </div>
+                </div>
+              ) : (
+                <div class={`relative aspect-[16/9] overflow-hidden ${palette.bg}`}>
+                  <div class={`absolute inset-0 ${palette.overlay}`}></div>
+                  <div class="relative flex h-full flex-col justify-between p-8 text-white md:p-16">
+                    <div class="flex items-center justify-between">
+                      <p class={`font-mono text-[11px] uppercase tracking-[0.25em] ${palette.label}`}>
+                        {d.rubro} · Los Mochis
+                      </p>
+                      <div class="rounded-full bg-white/20 px-3 py-1 font-mono text-[10px] backdrop-blur">
+                        WhatsApp
+                      </div>
+                    </div>
+
+                    <div>
+                      <p class={`mb-4 font-mono text-[11px] uppercase tracking-[0.25em] ${palette.accent}`}>
+                        En vivo
+                      </p>
+                      <p class="font-display text-3xl font-black leading-[0.95] tracking-tightest md:text-5xl">
+                        {d.negocio}.
+                      </p>
+                    </div>
+
+                    <div class="flex items-end justify-between gap-6">
+                      <div class="grid max-w-sm grid-cols-3 gap-2">
+                        <div class="aspect-square rounded bg-white/20 backdrop-blur"></div>
+                        <div class="aspect-square rounded bg-white/15 backdrop-blur"></div>
+                        <div class="aspect-square rounded bg-white/10 backdrop-blur"></div>
+                      </div>
+                      <div class="text-right">
+                        <p class={`meta-label ${palette.label}`}>Ver demo</p>
+                        <p class="font-mono text-2xl">↗</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          </a>
+        );
+      })}
+    </div>
+  </div>
+</section>

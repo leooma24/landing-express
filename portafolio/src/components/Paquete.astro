@@ -1,0 +1,83 @@
+---
+import { site, paquete } from '../config';
+const waHref = `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(site.whatsappMensaje)}`;
+
+const featuresCore = paquete.features.slice(0, 6);
+const featuresExtra = paquete.features.slice(6);
+---
+
+<section id="paquete" class="bg-ink-900 py-24 text-bone md:py-40">
+  <div class="wrap">
+    <div class="mb-16 flex items-baseline justify-between border-b border-ink-700 pb-6">
+      <p class="meta-label text-ink-300">01 · Paquete</p>
+      <p class="meta-number text-ink-300">Landing Express</p>
+    </div>
+
+    <div class="grid gap-16 lg:grid-cols-[1.1fr_1fr] lg:gap-24">
+      <div>
+        <h2 class="font-display text-display font-black tracking-tightest text-bone">
+          Una página.<br />
+          <span class="text-ink-400">Todo incluido.</span>
+        </h2>
+        <p class="mt-6 max-w-md text-base text-ink-300 md:text-lg">
+          Sin sorpresas ni letra chica. Lo que necesitas para que tu negocio exista en Google y reciba clientes por WhatsApp.
+        </p>
+
+        <div class="mt-10 inline-flex items-baseline gap-5">
+          <div>
+            <p class="meta-label text-ink-400">Setup</p>
+            <div class="mt-2 flex items-baseline gap-1">
+              <span class="font-display text-5xl font-black tracking-tightest text-coral md:text-6xl">${paquete.precioSetup.toLocaleString('es-MX')}</span>
+            </div>
+            <p class="mt-1 font-mono text-[11px] text-ink-400">pesos · una sola vez</p>
+          </div>
+          <div class="h-16 w-px bg-ink-700"></div>
+          <div>
+            <p class="meta-label text-ink-400">Después</p>
+            <div class="mt-2 flex items-baseline gap-1">
+              <span class="font-display text-3xl font-bold tracking-tightest text-bone md:text-4xl">${paquete.precioMensual}</span>
+              <span class="font-mono text-xs text-ink-400">/mes</span>
+            </div>
+            <p class="mt-1 font-mono text-[11px] text-ink-400">hosting + mantenimiento</p>
+          </div>
+        </div>
+
+        <div class="mt-12">
+          <a href={waHref} target="_blank" rel="noopener" class="btn-coral">
+            Quiero empezar
+            <span class="font-mono">→</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="lg:pt-2">
+        <p class="meta-label mb-8 text-ink-400">Incluye</p>
+        <ul class="divide-y divide-ink-700 border-y border-ink-700">
+          {paquete.features.map((f, i) => (
+            <li class="flex items-start gap-6 py-4">
+              <span class="font-mono text-[11px] font-medium text-ink-500 tabular-nums">
+                {String(i + 1).padStart(2, '0')}
+              </span>
+              <span class="flex-1 text-[15px] text-bone">{f}</span>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="none" class="mt-1 h-4 w-4 shrink-0 text-coral">
+                <path d="M4 10l4 4 8-8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </li>
+          ))}
+        </ul>
+
+        <div class="mt-10 rounded-2xl bg-ink-800 p-6">
+          <p class="meta-label mb-4 text-coral">La mensualidad incluye</p>
+          <ul class="grid grid-cols-2 gap-x-6 gap-y-2.5 text-sm text-ink-200">
+            {paquete.mensualidadIncluye.map((m) => (
+              <li class="flex items-start gap-2">
+                <span class="mt-2 h-1 w-1 shrink-0 rounded-full bg-coral"></span>
+                <span>{m}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

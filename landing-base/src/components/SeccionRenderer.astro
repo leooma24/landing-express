@@ -1,0 +1,65 @@
+---
+/**
+ * SeccionRenderer resuelve qué componente renderizar para cada sección,
+ * según `estructura.orden` + `estructura.variantes` del config.
+ *
+ * Cómo añadir una nueva variante o sección:
+ *   1. Crea el archivo en src/sections/{Seccion}/{Variante}.astro
+ *   2. Impórtalo aquí arriba
+ *   3. Agrégalo al `map` con la clave correcta
+ */
+import HeroEditorial from '../sections/Hero/HeroEditorial.astro';
+import HeroSplit from '../sections/Hero/HeroSplit.astro';
+import ServiciosLista from '../sections/Servicios/ServiciosLista.astro';
+import ServiciosCards from '../sections/Servicios/ServiciosCards.astro';
+import ServiciosDosColumnas from '../sections/Servicios/ServiciosDosColumnas.astro';
+import NosotrosEditorial from '../sections/Nosotros/NosotrosEditorial.astro';
+import GaleriaMasonry from '../sections/Galeria/GaleriaMasonry.astro';
+import UbicacionEditorial from '../sections/Ubicacion/UbicacionEditorial.astro';
+import ContactoEditorial from '../sections/Contacto/ContactoEditorial.astro';
+import MenuCarta from '../sections/Menu/MenuCarta.astro';
+import TratamientosLista from '../sections/Tratamientos/TratamientosLista.astro';
+import TestimoniosGrid from '../sections/Testimonios/TestimoniosGrid.astro';
+
+import type { SeccionId, VariantePorSeccion } from '../config';
+
+interface Props {
+  seccion: SeccionId;
+  variantes: VariantePorSeccion;
+}
+
+const { seccion, variantes } = Astro.props;
+
+const map: Record<string, Record<string, any>> = {
+  hero: { editorial: HeroEditorial, split: HeroSplit },
+  servicios: {
+    lista: ServiciosLista,
+    cards: ServiciosCards,
+    'dos-columnas': ServiciosDosColumnas,
+  },
+  nosotros: { editorial: NosotrosEditorial },
+  galeria: { masonry: GaleriaMasonry },
+  ubicacion: { editorial: UbicacionEditorial },
+  contacto: { editorial: ContactoEditorial },
+  menu: { carta: MenuCarta },
+  tratamientos: { lista: TratamientosLista },
+  testimonios: { grid: TestimoniosGrid },
+};
+
+const defaultVariant: Record<string, string> = {
+  hero: 'editorial',
+  servicios: 'lista',
+  nosotros: 'editorial',
+  galeria: 'masonry',
+  ubicacion: 'editorial',
+  contacto: 'editorial',
+  menu: 'carta',
+  tratamientos: 'lista',
+  testimonios: 'grid',
+};
+
+const variante = (variantes[seccion] as string | undefined) ?? defaultVariant[seccion];
+const Component = map[seccion]?.[variante];
+---
+
+{Component && <Component />}

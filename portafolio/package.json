@@ -1,0 +1,23 @@
+{
+  "name": "portafolio-tu-app",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Sitio portafolio tu-app.co — venta de Landing Express",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/tailwind": "^5.1.2",
+    "astro": "^4.16.7",
+    "tailwindcss": "^3.4.14"
+  },
+  "devDependencies": {
+    "@types/node": "^22.8.1",
+    "typescript": "^5.6.3"
+  }
+}

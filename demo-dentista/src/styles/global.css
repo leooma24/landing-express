@@ -1,0 +1,196 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    @apply bg-fondo text-texto;
+    font-family: var(--font-body);
+    line-height: var(--leading);
+    font-feature-settings: "ss01", "cv11";
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    font-variation-settings: "opsz" 96, "SOFT" 0;
+    text-wrap: balance;
+    color: rgb(var(--color-texto));
+  }
+
+  p { text-wrap: pretty; }
+
+  ::selection {
+    background-color: rgb(var(--color-primario));
+    color: white;
+  }
+
+  img {
+    filter: var(--img-filter);
+  }
+}
+
+@layer components {
+  .wrap {
+    @apply mx-auto w-full max-w-[82rem] px-5 sm:px-8 lg:px-12;
+  }
+
+  .wrap-narrow {
+    @apply mx-auto w-full max-w-4xl px-5 sm:px-8;
+  }
+
+  .section-pad {
+    padding-top: var(--sec-py);
+    padding-bottom: var(--sec-py);
+  }
+
+  @media (min-width: 768px) {
+    .section-pad {
+      padding-top: var(--sec-py-md);
+      padding-bottom: var(--sec-py-md);
+    }
+  }
+
+  .meta-label {
+    @apply font-mono text-[11px] font-medium uppercase tracking-[0.18em] text-tenue;
+  }
+
+  .meta-number {
+    @apply font-mono text-sm font-medium tabular-nums text-tenue;
+  }
+
+  .section-divider {
+    @apply mb-16 flex items-baseline justify-between border-b border-linea pb-5;
+  }
+
+  .btn {
+    @apply inline-flex items-center gap-2 px-6 py-3 text-[14px] font-medium transition duration-300;
+    border-radius: var(--radius-full);
+  }
+
+  .btn-primary {
+    @apply btn bg-texto text-fondo hover:bg-primario;
+  }
+
+  .btn-accent {
+    @apply btn bg-primario text-white hover:bg-secundario;
+  }
+
+  .btn-whatsapp {
+    @apply btn bg-[#25D366] text-white hover:bg-[#1FAA52];
+  }
+
+  .btn-ghost {
+    @apply btn border border-linea bg-transparent text-texto hover:bg-texto hover:text-fondo;
+  }
+
+  .link-underline {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 0% 1px;
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+    transition: background-size 0.3s ease;
+  }
+
+  .link-underline:hover {
+    background-size: 100% 1px;
+  }
+
+  .card-shape {
+    border-radius: var(--radius-md);
+  }
+
+  .figure-shape {
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+  }
+}
+
+/* --- Motion system (dramatic) --- */
+@layer utilities {
+  [data-reveal] {
+    opacity: 0;
+    transition:
+      opacity 1.3s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 1.3s cubic-bezier(0.16, 1, 0.3, 1),
+      filter 1.3s cubic-bezier(0.16, 1, 0.3, 1),
+      clip-path 1.3s cubic-bezier(0.16, 1, 0.3, 1);
+    transition-delay: var(--reveal-delay, 0ms);
+    will-change: opacity, transform, filter;
+  }
+
+  [data-reveal="up"],
+  [data-reveal=""],
+  [data-reveal]:not([data-reveal="left"]):not([data-reveal="right"]):not([data-reveal="fade"]):not([data-reveal="scale"]):not([data-reveal="image"]):not([data-reveal="down"]) {
+    transform: translateY(100px) scale(0.97);
+    filter: blur(4px);
+  }
+
+  [data-reveal="down"] {
+    transform: translateY(-80px) scale(0.97);
+    filter: blur(4px);
+  }
+  [data-reveal="left"] {
+    transform: translateX(-120px) scale(0.98);
+    filter: blur(3px);
+  }
+  [data-reveal="right"] {
+    transform: translateX(120px) scale(0.98);
+    filter: blur(3px);
+  }
+  [data-reveal="fade"] {
+    transform: translateY(20px);
+    filter: blur(2px);
+  }
+  [data-reveal="scale"] {
+    transform: scale(0.82);
+    filter: blur(4px);
+  }
+
+  [data-reveal="image"] {
+    transform: translateY(60px) scale(0.94);
+    filter: blur(14px) saturate(0.7);
+    clip-path: inset(10% 0% 10% 0%);
+  }
+
+  [data-reveal].is-visible {
+    opacity: 1;
+    transform: none;
+    filter: none;
+    clip-path: inset(0 0 0 0);
+  }
+
+  .reveal-image > img,
+  .reveal-image > div > img {
+    transition: transform 1.8s cubic-bezier(0.16, 1, 0.3, 1);
+    transform: scale(1.18);
+  }
+
+  .reveal-image.is-visible > img,
+  .reveal-image.is-visible > div > img {
+    transform: scale(1);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    [data-reveal] {
+      opacity: 1 !important;
+      transform: none !important;
+      filter: none !important;
+      clip-path: none !important;
+      transition: none !important;
+    }
+    .reveal-image > img,
+    .reveal-image > div > img {
+      transform: none !important;
+      transition: none !important;
+    }
+  }
+}
+

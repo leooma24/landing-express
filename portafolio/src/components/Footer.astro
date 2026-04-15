@@ -1,0 +1,46 @@
+---
+import { site } from '../config';
+const year = new Date().getFullYear();
+---
+
+<footer class="border-t border-ink-200 bg-bone py-12">
+  <div class="wrap">
+    <div class="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
+      <div>
+        <a href="#inicio" class="flex items-baseline gap-1.5 font-display text-2xl font-black tracking-tightest">
+          <span class="text-coral">◆</span>
+          <span>tu-app</span>
+          <span class="text-ink-400">.co</span>
+        </a>
+        <p class="mt-4 max-w-sm text-sm text-ink-500">
+          Landings para negocios locales. Hecho por <span class="text-ink-900 font-medium">{site.fundador}</span> desde {site.ciudad}.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-2 gap-x-12 gap-y-6 md:grid-cols-3">
+        <div>
+          <p class="meta-label mb-3">Secciones</p>
+          <ul class="space-y-2 text-sm">
+            <li><a href="#paquete" class="link-underline">Paquete</a></li>
+            <li><a href="#landings" class="link-underline">Landings</a></li>
+            <li><a href="#custom" class="link-underline">Custom</a></li>
+            <li><a href="#proceso" class="link-underline">Proceso</a></li>
+            <li><a href="#faq" class="link-underline">FAQ</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="meta-label mb-3">Contacto</p>
+          <ul class="space-y-2 text-sm">
+            <li><a href={`mailto:${site.email}`} class="link-underline">{site.email}</a></li>
+            <li><a href={`https://wa.me/${site.whatsapp}`} target="_blank" rel="noopener" class="link-underline">WhatsApp</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-16 flex flex-col items-start justify-between gap-4 border-t border-ink-200 pt-8 font-mono text-xs text-ink-400 md:flex-row md:items-center">
+      <p>© {year} tu-app.co · Todos los derechos reservados.</p>
+      <p>{site.ciudad} · Sinaloa · México</p>
+    </div>
+  </div>
+</footer>

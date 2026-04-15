@@ -1,0 +1,37 @@
+---
+import { proceso, paquete } from '../config';
+---
+
+<section id="proceso" class="bg-bone py-24 md:py-40">
+  <div class="wrap">
+    <div class="mb-16 flex items-baseline justify-between border-b border-ink-200 pb-6">
+      <p class="meta-label">04 · Proceso</p>
+      <p class="meta-number">{paquete.tiempoEntrega}</p>
+    </div>
+
+    <div class="mb-16 max-w-3xl">
+      <h2 class="font-display text-display font-black tracking-tightest">
+        De la idea al<br />
+        sitio publicado.
+      </h2>
+      <p class="mt-6 text-base text-ink-500 md:text-lg">
+        Cuatro pasos. Sin juntas interminables, sin "depende", sin esperar meses.
+      </p>
+    </div>
+
+    <ol class="grid gap-px bg-ink-200 overflow-hidden rounded-2xl lg:grid-cols-4">
+      {proceso.map((p) => (
+        <li class="flex flex-col bg-bone p-7 lg:p-8">
+          <div class="mb-8 flex items-baseline justify-between">
+            <span class="font-display text-[3.5rem] font-black leading-none tracking-tightest text-coral">
+              {String(p.paso).padStart(2, '0')}
+            </span>
+            <span class="font-mono text-[11px] uppercase tracking-[0.15em] text-ink-400">Paso</span>
+          </div>
+          <h3 class="mb-2 font-display text-lg font-bold tracking-tightest">{p.titulo}</h3>
+          <p class="text-sm leading-relaxed text-ink-500">{p.descripcion}</p>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>

@@ -1,0 +1,67 @@
+---
+/**
+ * Variante CARDS de Servicios.
+ * Grid 2-3 columnas, cards con hover lift + accent en esquina.
+ */
+import { business } from '../../config';
+---
+
+<section id="servicios" class="section-pad bg-fondo">
+  <div class="wrap">
+    <div class="section-divider" data-reveal="fade">
+      <p class="meta-label">{business.mostrarNumeros ? '01 · ' : ''}Servicios</p>
+      <p class="meta-number">{business.servicios.length}</p>
+    </div>
+
+    <div class="mb-16 grid items-end gap-8 lg:grid-cols-2">
+      <h2 data-reveal="left" class="font-display text-display font-semibold text-texto">
+        Todo lo que<br /> hacemos por ti.
+      </h2>
+      <p data-reveal="right" style="--reveal-delay: 150ms;" class="max-w-md text-base leading-relaxed text-tenue md:text-lg">
+        Soluciones pensadas para que tengas la mejor experiencia, de principio a fin.
+      </p>
+    </div>
+
+    <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3 md:gap-5">
+      {business.servicios.map((s, i) => (
+        <article
+          data-reveal="up"
+          style={`--reveal-delay: ${i * 80}ms;`}
+          class="group relative flex flex-col overflow-hidden border border-linea bg-superficie/50 p-6 transition duration-500 hover:-translate-y-1 hover:border-primario/40 hover:bg-fondo hover:shadow-[0_24px_60px_-20px_rgba(0,0,0,0.12)] md:p-8"
+          style-extra="border-radius: var(--radius-md);"
+        >
+          <span class="absolute right-5 top-5 font-mono text-[11px] font-medium tabular-nums text-tenue transition group-hover:text-primario">
+            {String(i + 1).padStart(2, '0')}
+          </span>
+
+          <div class="mb-10 h-12 w-12 overflow-hidden" style="border-radius: var(--radius-sm);">
+            <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" class="h-full w-full text-primario/80 transition group-hover:text-primario">
+              <rect x="2" y="2" width="44" height="44" rx="6" fill="currentColor" fill-opacity="0.08" stroke="currentColor" stroke-width="1.2"/>
+              <path d="M16 24 L22 30 L32 18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+
+          <h3 class="mb-3 font-display text-xl font-semibold leading-tight text-texto md:text-2xl">
+            {s.titulo}
+          </h3>
+          <p class="text-sm leading-relaxed text-tenue md:text-[15px]">
+            {s.descripcion}
+          </p>
+
+          {s.precio && (
+            <p class="mt-6 font-mono text-xs text-primario">Desde {s.precio}</p>
+          )}
+
+          <div class="mt-6 flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.15em] text-tenue transition group-hover:text-primario">
+            <span>Saber más</span>
+            <span class="transition group-hover:translate-x-1">→</span>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style is:global>
+  article[data-reveal] { border-radius: var(--radius-md); }
+</style>

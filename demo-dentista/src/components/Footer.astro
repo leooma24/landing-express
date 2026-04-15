@@ -1,0 +1,15 @@
+---
+import { business } from '../config';
+const year = new Date().getFullYear();
+---
+
+<footer class="border-t border-fondo/10 bg-texto py-10 text-fondo/50">
+  <div class="wrap">
+    <div class="flex flex-col items-start justify-between gap-4 font-mono text-xs tabular-nums md:flex-row md:items-center">
+      <p>© {year} {business.nombre}. Todos los derechos reservados.</p>
+      <p>
+        Hecho por <a href="https://tu-app.co" class="text-fondo link-underline">tu-app.co</a> · {business.direccion.ciudad}
+      </p>
+    </div>
+  </div>
+</footer>

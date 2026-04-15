@@ -1,0 +1,27 @@
+---
+import { site } from '../config';
+const waHref = `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(site.whatsappMensaje)}`;
+---
+
+<header class="sticky top-0 z-40 border-b border-ink-200 bg-bone/80 backdrop-blur-xl">
+  <div class="wrap flex h-16 items-center justify-between">
+    <a href="#inicio" class="group flex items-baseline gap-1.5 font-display text-lg font-bold tracking-tightest">
+      <span class="text-coral">◆</span>
+      <span>tu-app</span>
+      <span class="text-ink-400">.co</span>
+    </a>
+
+    <nav class="hidden items-center gap-1 md:flex">
+      <a href="#paquete" class="rounded-full px-4 py-2 text-[13px] font-medium text-ink-500 transition hover:bg-ink-900 hover:text-bone">Paquete</a>
+      <a href="#landings" class="rounded-full px-4 py-2 text-[13px] font-medium text-ink-500 transition hover:bg-ink-900 hover:text-bone">Landings</a>
+      <a href="#custom" class="rounded-full px-4 py-2 text-[13px] font-medium text-ink-500 transition hover:bg-ink-900 hover:text-bone">Custom</a>
+      <a href="#proceso" class="rounded-full px-4 py-2 text-[13px] font-medium text-ink-500 transition hover:bg-ink-900 hover:text-bone">Proceso</a>
+      <a href="#faq" class="rounded-full px-4 py-2 text-[13px] font-medium text-ink-500 transition hover:bg-ink-900 hover:text-bone">FAQ</a>
+    </nav>
+
+    <a href={waHref} target="_blank" rel="noopener" class="btn-ink py-2 text-[13px]">
+      Empezar
+      <span class="font-mono">→</span>
+    </a>
+  </div>
+</header>

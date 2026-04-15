@@ -1,0 +1,41 @@
+---
+import { business } from '../../config';
+---
+
+<section id="servicios" class="section-pad bg-superficie">
+  <div class="wrap">
+    <div class="section-divider" data-reveal="fade">
+      <p class="meta-label">{business.mostrarNumeros ? '01 · ' : ''}Servicios</p>
+      <p class="meta-number">{business.servicios.length}</p>
+    </div>
+
+    <div class="mb-16 max-w-2xl">
+      <h2 data-reveal="left" class="font-display text-display font-semibold text-texto">
+        Lo que hacemos.
+      </h2>
+      <p data-reveal="left" style="--reveal-delay: 150ms;" class="mt-5 text-base leading-relaxed text-tenue md:text-lg">
+        Atención de calidad, precios justos, y el mismo cuidado en cada visita.
+      </p>
+    </div>
+
+    <ol class="grid gap-0 divide-y divide-linea border-t border-b border-linea">
+      {business.servicios.map((s, i) => (
+        <li
+          data-reveal={i % 2 === 0 ? 'left' : 'right'}
+          style={`--reveal-delay: ${i * 100}ms;`}
+          class="group grid grid-cols-[auto_1fr] gap-6 py-7 transition hover:bg-fondo/60 md:grid-cols-[4rem_1fr_1fr] md:gap-10 md:py-8"
+        >
+          <span class="pt-1 font-mono text-xs font-medium tabular-nums text-tenue transition group-hover:text-primario">
+            {String(i + 1).padStart(2, '0')}
+          </span>
+          <h3 class="font-display text-xl font-semibold leading-tight text-texto transition group-hover:translate-x-1 md:text-2xl">
+            {s.titulo}
+          </h3>
+          <p class="col-start-2 text-sm leading-relaxed text-tenue md:col-start-3 md:text-base">
+            {s.descripcion}
+          </p>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>

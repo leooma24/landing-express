@@ -1,0 +1,81 @@
+---
+/**
+ * Variante SPLIT del Hero.
+ * Imagen full-bleed 50% izquierda + contenido derecha. Visual-first.
+ */
+import { business } from '../../config';
+
+const waHref = `https://wa.me/${business.whatsapp}?text=${encodeURIComponent(business.whatsappMensaje)}`;
+---
+
+<section id="hero" class="relative min-h-[90vh] overflow-hidden bg-fondo">
+  <div class="grid min-h-[90vh] gap-0 lg:grid-cols-[1fr_1.1fr]">
+    <figure data-reveal="image" class="reveal-image relative h-[60vh] overflow-hidden lg:h-auto">
+      <div class="absolute inset-0">
+        <img
+          src={business.heroImagen}
+          alt={business.nombre}
+          class="h-full w-full object-cover"
+          loading="eager"
+          fetchpriority="high"
+        />
+      </div>
+      <div class="absolute inset-0 bg-gradient-to-br from-texto/30 via-transparent to-transparent"></div>
+      <div class="absolute left-6 top-6 flex items-center gap-2 rounded-full bg-fondo/90 px-3 py-1.5 backdrop-blur md:left-10 md:top-10">
+        <span class="h-1.5 w-1.5 rounded-full bg-primario"></span>
+        <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-texto">
+          {business.direccion.ciudad}, {business.direccion.estado}
+        </span>
+      </div>
+      {business.mostrarNumeros && (
+        <p class="absolute bottom-6 left-6 font-mono text-[11px] uppercase tracking-[0.2em] text-fondo md:bottom-10 md:left-10">
+          Fig. 01 · {business.nombre.split(' ').slice(0, 2).join(' ')}
+        </p>
+      )}
+    </figure>
+
+    <div class="flex items-center px-5 py-16 sm:px-8 lg:px-16 lg:py-0">
+      <div class="max-w-xl">
+        <p data-reveal="up" style="--reveal-delay: 100ms;" class="mb-6 font-mono text-[11px] uppercase tracking-[0.2em] text-primario">
+          {business.tagline}
+        </p>
+        <h1 data-reveal="up" style="--reveal-delay: 200ms;" class="mb-8 font-display text-display-xl font-semibold leading-[1.02] text-texto">
+          {business.nombre}.
+        </h1>
+        <p data-reveal="up" style="--reveal-delay: 340ms;" class="text-base leading-relaxed text-tenue md:text-lg">
+          {business.descripcionCorta}
+        </p>
+
+        <div data-reveal="up" style="--reveal-delay: 480ms;" class="mt-10 flex flex-wrap items-center gap-3">
+          <a href={waHref} target="_blank" rel="noopener" class="btn-whatsapp">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-4 w-4">
+              <path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24z" />
+            </svg>
+            {business.heroCtaTexto}
+          </a>
+          <a href="#servicios" class="btn-ghost">
+            Ver más
+            <span class="font-mono">↓</span>
+          </a>
+        </div>
+
+        <div data-reveal="up" style="--reveal-delay: 600ms;" class="mt-16 grid grid-cols-3 gap-4 border-t border-linea pt-8">
+          <div>
+            <p class="meta-label">Est.</p>
+            <p class="mt-1 font-display text-2xl font-semibold tracking-tight text-texto">
+              {new Date().getFullYear() - 12}
+            </p>
+          </div>
+          <div>
+            <p class="meta-label">Clientes</p>
+            <p class="mt-1 font-display text-2xl font-semibold tracking-tight text-texto">500+</p>
+          </div>
+          <div>
+            <p class="meta-label">Rating</p>
+            <p class="mt-1 font-display text-2xl font-semibold tracking-tight text-texto">4.9★</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

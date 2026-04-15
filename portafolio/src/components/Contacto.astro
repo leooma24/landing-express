@@ -1,0 +1,107 @@
+---
+import { site } from '../config';
+const waHref = `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(site.whatsappMensaje)}`;
+const formspreeAction = `https://formspree.io/f/${site.formspreeId}`;
+---
+
+<section id="contacto" class="relative overflow-hidden bg-ink-900 py-24 text-bone md:py-40">
+  <div class="absolute -left-20 -top-20 h-96 w-96 rounded-full bg-coral opacity-20 blur-3xl"></div>
+  <div class="absolute -bottom-20 -right-20 h-96 w-96 rounded-full bg-coral opacity-10 blur-3xl"></div>
+
+  <div class="wrap relative">
+    <div class="mb-16 flex items-baseline justify-between border-b border-ink-700 pb-6">
+      <p class="meta-label text-ink-300">06 · Contacto</p>
+      <p class="meta-number text-ink-300">Respuesta &lt; 1h</p>
+    </div>
+
+    <div class="grid gap-16 lg:grid-cols-[1.2fr_1fr] lg:gap-24">
+      <div>
+        <h2 class="font-display text-display font-black tracking-tightest text-bone">
+          ¿Listo para<br />
+          <span class="text-coral">estar en Google?</span>
+        </h2>
+        <p class="mt-6 max-w-lg text-base text-ink-300 md:text-lg">
+          Escríbeme por WhatsApp o llena el formulario. Contesta <span class="text-bone">{site.fundador}</span> — quien te va a hacer la página, no un bot ni un call center.
+        </p>
+
+        <div class="mt-10 flex flex-wrap gap-4">
+          <a href={waHref} target="_blank" rel="noopener" class="btn-coral">
+            WhatsApp directo
+            <span class="font-mono">→</span>
+          </a>
+          <a href={`mailto:${site.email}`} class="btn-ghost border-ink-600 text-bone hover:bg-bone hover:text-ink-900">
+            {site.email}
+          </a>
+        </div>
+
+        <div class="mt-16 grid grid-cols-2 gap-8 border-t border-ink-700 pt-8 text-sm text-ink-300">
+          <div>
+            <p class="meta-label mb-2 text-ink-400">Ubicación</p>
+            <p>{site.ciudad}, Sinaloa</p>
+            <p class="text-ink-400">México</p>
+          </div>
+          <div>
+            <p class="meta-label mb-2 text-ink-400">Horarios</p>
+            <p>Lun – Vie · 9 – 19</p>
+            <p class="text-ink-400">Sáb · 9 – 14</p>
+          </div>
+        </div>
+      </div>
+
+      <form action={formspreeAction} method="POST" class="space-y-0 divide-y divide-ink-700 border-y border-ink-700">
+        <div class="py-4">
+          <label for="nombre" class="meta-label block text-ink-400">Nombre</label>
+          <input
+            type="text"
+            id="nombre"
+            name="nombre"
+            required
+            class="mt-1 w-full border-0 bg-transparent p-0 font-display text-xl font-bold tracking-tightest text-bone placeholder-ink-500 focus:outline-none focus:ring-0"
+            placeholder="Tu nombre completo"
+          />
+        </div>
+        <div class="py-4">
+          <label for="negocio" class="meta-label block text-ink-400">Negocio</label>
+          <input
+            type="text"
+            id="negocio"
+            name="negocio"
+            required
+            class="mt-1 w-full border-0 bg-transparent p-0 font-display text-xl font-bold tracking-tightest text-bone placeholder-ink-500 focus:outline-none focus:ring-0"
+            placeholder="Nombre del negocio"
+          />
+        </div>
+        <div class="py-4">
+          <label for="telefono" class="meta-label block text-ink-400">WhatsApp</label>
+          <input
+            type="tel"
+            id="telefono"
+            name="telefono"
+            required
+            class="mt-1 w-full border-0 bg-transparent p-0 font-display text-xl font-bold tracking-tightest text-bone placeholder-ink-500 focus:outline-none focus:ring-0"
+            placeholder="668 123 4567"
+          />
+        </div>
+        <div class="py-4">
+          <label for="mensaje" class="meta-label block text-ink-400">¿En qué te ayudamos?</label>
+          <textarea
+            id="mensaje"
+            name="mensaje"
+            rows="3"
+            class="mt-1 w-full resize-none border-0 bg-transparent p-0 text-base text-bone placeholder-ink-500 focus:outline-none focus:ring-0"
+            placeholder="Cuéntanos un poco de tu negocio..."
+          ></textarea>
+        </div>
+        <div class="pt-6">
+          <button type="submit" class="btn-coral w-full justify-center">
+            Enviar
+            <span class="font-mono">→</span>
+          </button>
+          <p class="mt-4 text-center font-mono text-[11px] uppercase tracking-[0.15em] text-ink-500">
+            Respondemos en menos de 1 hora
+          </p>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>

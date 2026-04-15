@@ -1,0 +1,133 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    @apply bg-bone text-ink-900 font-sans;
+    font-feature-settings: "ss01", "cv11";
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-display text-ink-900;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    @apply bg-coral text-white;
+  }
+}
+
+@layer components {
+  .wrap {
+    @apply mx-auto w-full max-w-[88rem] px-5 sm:px-8 lg:px-12;
+  }
+
+  .wrap-narrow {
+    @apply mx-auto w-full max-w-5xl px-5 sm:px-8;
+  }
+
+  .meta-label {
+    @apply font-mono text-[11px] font-medium uppercase tracking-[0.18em] text-ink-400;
+  }
+
+  .meta-number {
+    @apply font-mono text-sm font-medium tabular-nums text-ink-400;
+  }
+
+  .btn {
+    @apply inline-flex items-center gap-2 rounded-full px-6 py-3 text-[15px] font-medium transition duration-300;
+  }
+
+  .btn-ink {
+    @apply btn bg-ink-900 text-bone hover:bg-ink-700;
+  }
+
+  .btn-coral {
+    @apply btn bg-coral text-white hover:bg-coral-600;
+  }
+
+  .btn-ghost {
+    @apply btn border border-ink-200 bg-transparent text-ink-900 hover:border-ink-900 hover:bg-ink-900 hover:text-bone;
+  }
+
+  .hr-rule {
+    @apply border-0 border-t border-ink-200;
+  }
+
+  .link-underline {
+    @apply relative inline-block;
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 0% 1px;
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+    transition: background-size 0.3s ease;
+  }
+
+  .link-underline:hover {
+    background-size: 100% 1px;
+  }
+
+  .section-label {
+    @apply mb-16 flex items-baseline justify-between border-b border-ink-200 pb-4;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .js-reveal [data-reveal],
+  .js-reveal section h1:not([data-no-reveal]),
+  .js-reveal section h2:not([data-no-reveal]),
+  .js-reveal section h3:not([data-no-reveal]),
+  .js-reveal section p:not([data-no-reveal]),
+  .js-reveal section li:not([data-no-reveal]),
+  .js-reveal section img:not([data-no-reveal]),
+  .js-reveal section article:not([data-no-reveal]),
+  .js-reveal section figure:not([data-no-reveal]) {
+    opacity: 0;
+    transform: translateY(32px);
+    transition:
+      opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+    transition-delay: var(--reveal-delay, 0ms);
+    will-change: opacity, transform;
+  }
+
+  .js-reveal .is-visible {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .js-reveal [data-no-reveal],
+  .js-reveal [data-no-reveal] * {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .js-reveal [data-reveal],
+    .js-reveal section h1, .js-reveal section h2, .js-reveal section h3,
+    .js-reveal section p, .js-reveal section li, .js-reveal section img,
+    .js-reveal section article, .js-reveal section figure {
+      opacity: 1 !important;
+      transform: none !important;
+      transition: none !important;
+    }
+  }
+}
