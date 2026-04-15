@@ -10,3 +10,6 @@ dist/
 .idea/
 .playwright-mcp/
 Thumbs.db
+dentista-check.png
+restaurante-check.png
+test-*.png
