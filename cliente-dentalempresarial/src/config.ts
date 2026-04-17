@@ -168,15 +168,15 @@ export interface BusinessConfig {
 
 export const business: BusinessConfig = {
   nombre: 'Dental Empresarial',
-  tagline: '¿Ya te arreglaste los dientes? · Los Mochis',
+  tagline: 'Y tú… ¿Ya te arreglaste los dientes?',
   descripcionCorta:
-    'Odontología integral en el corazón de Los Mochis. Más de 10 especialistas certificados, tecnología digital y precios accesibles. Atendemos a toda la familia — desde limpieza infantil hasta implantes y ortodoncia.',
+    'Visita el consultorio dental que te devolverá una linda sonrisa y la salud bucal que necesitas para verte y sentirte mejor. Somos Dental Empresarial en Los Mochis, Sinaloa — consultorio dental integral con tecnología de punta y un equipo de dentistas certificados.',
   whatsapp: '526688224372',
   whatsappMensaje: 'Hola, vi su sitio y quiero agendar una cita en Dental Empresarial.',
   telefono: '+52 668 812 4614',
   email: 'dentalempresarial@hotmail.com',
   direccion: {
-    calle: 'Calle Ignacio Allende #655 Sur',
+    calle: 'Calle Ignacio Allende #655 Sur, Local B · Col. Centro',
     ciudad: 'Los Mochis',
     estado: 'Sinaloa',
     codigoPostal: '81200',
@@ -222,7 +222,7 @@ export const business: BusinessConfig = {
     entrada: true,
   },
   estructura: {
-    orden: ['hero', 'servicios', 'tratamientos', 'nosotros', 'testimonios', 'ubicacion', 'contacto'],
+    orden: ['hero', 'servicios', 'tratamientos', 'nosotros', 'ubicacion', 'contacto'],
     variantes: {
       hero: 'corporativo',
       servicios: 'cards',
@@ -230,7 +230,6 @@ export const business: BusinessConfig = {
       ubicacion: 'editorial',
       contacto: 'editorial',
       tratamientos: 'lista',
-      testimonios: 'grid',
     },
   },
   logo: '/logo-dental.png',
@@ -238,60 +237,60 @@ export const business: BusinessConfig = {
   heroImagen: '/interior-02.jpg',
   heroCtaTexto: 'Agendar por WhatsApp',
   topBar: true,
-  heroEyebrow: 'Promociones mensuales · Pregunta por WhatsApp',
-  heroTitulo: 'Odontología integral para toda la familia en Los Mochis',
+  heroEyebrow: 'Promociones mensuales · Facilidades de pago',
+  heroTitulo: 'Consultorio dental a precios accesibles',
   heroTelefonoCta: 'Llamar 668 812 4614',
   trustStrip: [
-    { valor: '10+', titulo: 'Especialistas certificados', icono: 'especialistas' },
-    { valor: '7', titulo: 'Especialidades dentales', icono: 'verificado' },
-    { valor: '15+', titulo: 'Años en Los Mochis', icono: 'anos' },
-    { valor: 'FONACOT · Coppel', titulo: 'Financiamiento disponible', icono: 'pagos' },
+    { valor: '11', titulo: 'Dentistas certificados', icono: 'especialistas' },
+    { valor: '10+', titulo: 'Especialidades dentales', icono: 'verificado' },
+    { valor: 'Radiología digital', titulo: 'Tecnología de punta', icono: 'rating' },
+    { valor: 'FONACOT · Coppel', titulo: 'Facilidades de pago', icono: 'pagos' },
   ],
   servicios: [
     {
       titulo: 'Ortodoncia y Ortopedia Maxilar',
       descripcion:
-        'Brackets metálicos, estéticos y alineadores invisibles. Corrección de mordida para niños y adultos, con seguimiento mensual.',
+        'Brackets, ortopedia maxilar y tratamientos para corregir la alineación y mordida en niños y adultos.',
       imagen: 'https://images.unsplash.com/photo-1609840114035-3c981b782dfe?w=800&q=80',
     },
     {
-      titulo: 'Estética Dental y Rehabilitación',
+      titulo: 'Odontología Estética',
       descripcion:
-        'Blanqueamiento, carillas, coronas, puentes e implantes. Diseño de sonrisa con resultados naturales y duraderos.',
+        'Diseño de sonrisa con carillas, resinas inyectadas, blanqueamiento dental y rehabilitación estética integral.',
       imagen: 'https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=800&q=80',
     },
     {
       titulo: 'Odontopediatría',
       descripcion:
-        'Atención dental especializada para niños en un ambiente amigable. Limpiezas, flúor y prevención desde temprana edad.',
+        'Odontología infantil: revisión, selladores de fosetas y fisuras, mantenedores de espacio y prevención desde temprana edad.',
       imagen: 'https://images.unsplash.com/photo-1598256989800-fe5f95da9787?w=800&q=80',
     },
     {
       titulo: 'Endodoncia',
       descripcion:
-        'Tratamiento de conductos con técnicas modernas para conservar tu diente natural. Sin dolor y en pocas sesiones.',
+        'Tratamiento de conductos (necro pulpectomía, biopulpectomía, pulpotomía y pulpectomía) con especialistas certificados.',
       imagen: 'https://images.unsplash.com/photo-1643297654416-05795d62e39c?w=800&q=80',
     },
     {
       titulo: 'Periodoncia',
       descripcion:
-        'Tratamiento integral de encías: profilaxis profunda, control de sarro y manejo de enfermedad periodontal.',
+        'Cirugía plástica periodontal, raspado y alisado radicular, gingivectomía y gingivoplastia para la salud de tus encías.',
     },
     {
-      titulo: 'Cirugía Maxilofacial',
+      titulo: 'Rehabilitación y Cirugía',
       descripcion:
-        'Extracciones complejas, cirugía de terceros molares e intervenciones maxilofaciales con radiología digital de apoyo.',
+        'Coronas, puentes, incrustaciones de zirconio/disilicato, prótesis y cirugía de terceros molares con radiología digital.',
     },
   ],
   sobreNosotros: {
-    titulo: 'Más de 10 especialistas para toda la familia',
+    titulo: 'Tu clínica dental de confianza en Los Mochis',
     texto:
-      'Dental Empresarial es una clínica de odontología integral ubicada en el centro de Los Mochis. Contamos con un equipo de más de 10 dentistas certificados —con cédula profesional verificada— especializados en endodoncia, ortodoncia, odontopediatría, periodoncia, estética y cirugía maxilofacial. Nuestro compromiso es brindar atención de calidad a precios accesibles, con promociones mensuales, financiamiento FONACOT y Coppel, y múltiples formas de pago incluyendo tarjeta, transferencia, OXXO, SPEI, Mercado Pago, Samsung Pay y Apple Pay.',
+      'En Dental Empresarial tenemos diversas certificaciones y somos especialistas en periodoncia, odontopediatría, endodoncia, ortodoncia, rehabilitación estética, entre muchos otros servicios. Manejamos radiología digitalizada y materiales de la más alta calidad para garantizar la efectividad de los tratamientos. ¡Ofrecemos precios muy accesibles! Pregunta por nuestras promociones mensuales y facilidades de pago — aceptamos efectivo, tarjeta, transferencia, OXXO, SPEI, Mercado Pago, Samsung Pay, Apple Pay, FONACOT y Coppel Pay.',
     imagen: '/interior-01.jpg',
     estadisticas: [
-      { etiqueta: 'Especialistas', valor: '10+' },
-      { etiqueta: 'Especialidades', valor: '7' },
-      { etiqueta: 'Años en Los Mochis', valor: '15+' },
+      { etiqueta: 'Dentistas certificados', valor: '11' },
+      { etiqueta: 'Especialidades', valor: '10+' },
+      { etiqueta: 'Formas de pago', valor: '15+' },
     ],
   },
   galeria: [
@@ -305,49 +304,49 @@ export const business: BusinessConfig = {
   tratamientos: {
     titulo: 'Tratamientos',
     descripcion:
-      'Atendemos a toda la familia con las principales especialidades odontológicas. Consulta el precio de tu tratamiento por WhatsApp — manejamos promociones mensuales y financiamiento FONACOT y Coppel.',
+      'Servicios dentales completos con tecnología de punta. Agenda una cita y pregunta por nuestras promociones mensuales y facilidades de pago.',
     lista: [
       {
-        nombre: 'Limpieza Dental con Flúor',
-        descripcion: 'Profilaxis profesional, pulido y aplicación de flúor. Parte de nuestra promoción de primer contacto.',
+        nombre: 'Limpieza dental con flúor',
+        descripcion: 'Profilaxis profesional, pulido y aplicación de flúor para mantener tu salud bucal.',
         desde: 'Consultar',
         duracion: '45 min',
         incluye: ['Diagnóstico visual', 'Remoción de sarro', 'Pulido dental', 'Aplicación de flúor'],
       },
       {
-        nombre: 'Blanqueamiento Dental',
-        descripcion: 'Blanqueamiento en consultorio para recuperar el tono natural de tu sonrisa en una sola sesión.',
+        nombre: 'Blanqueamiento dental',
+        descripcion: 'Blanqueamiento en consultorio para recuperar el tono natural de tu sonrisa.',
         desde: 'Consultar',
         duracion: '60 min',
         incluye: ['Protector gingival', 'Sesión en consultorio', 'Kit de mantenimiento', 'Revisión de seguimiento'],
       },
       {
-        nombre: 'Ortodoncia — Brackets',
-        descripcion: 'Brackets metálicos o estéticos con ajustes mensuales. Corrección completa de mordida y alineación.',
+        nombre: 'Diseño de sonrisa',
+        descripcion: 'Carillas, resinas inyectadas, blanqueamiento y enserados de diagnóstico para rediseñar tu sonrisa.',
         desde: 'Consultar',
-        duracion: '18-24 meses',
-        incluye: ['Estudio radiográfico', 'Instalación', 'Ajustes mensuales', 'Retenedores finales'],
+        duracion: 'Varias sesiones',
+        incluye: ['Enserado de diagnóstico', 'Diseño personalizado', 'Cámara intraoral', 'Revisión de seguimiento'],
       },
       {
-        nombre: 'Ortodoncia Invisible',
-        descripcion: 'Alineadores transparentes removibles — estética premium sin brackets visibles.',
+        nombre: 'Ortodoncia con brackets',
+        descripcion: 'Brackets con seguimiento mensual para corregir mordida y alineación dental.',
         desde: 'Consultar',
-        duracion: '12-18 meses',
-        incluye: ['Escaneo 3D intraoral', 'Set completo de alineadores', 'Revisiones mensuales', 'Retenedores finales'],
+        duracion: '18-24 meses',
+        incluye: ['Radiografía periapical digitalizada', 'Instalación', 'Ajustes mensuales', 'Retenedores finales'],
       },
       {
         nombre: 'Endodoncia',
-        descripcion: 'Tratamiento de conductos para conservar tu diente natural. Una a dos sesiones sin dolor.',
+        descripcion: 'Tratamiento de conductos: necro pulpectomía, biopulpectomía, pulpotomía y pulpectomía.',
         desde: 'Consultar',
         duracion: '60-90 min',
         incluye: ['Diagnóstico radiográfico', 'Anestesia', 'Obturación de conductos', 'Radiografía final'],
       },
       {
-        nombre: 'Coronas, Puentes e Implantes',
-        descripcion: 'Rehabilitación completa: implantes de titanio, coronas de porcelana y puentes fijos.',
+        nombre: 'Coronas, incrustaciones y puentes',
+        descripcion: 'Rehabilitación con disilicato de litio, zirconio, metal-porcelana, oro o acero-cromo. Postes de fibra de vidrio.',
         desde: 'Consultar',
-        duracion: '3-6 meses',
-        incluye: ['Evaluación integral', 'Cirugía (si aplica)', 'Corona o puente', 'Revisiones de control'],
+        duracion: '2-4 sesiones',
+        incluye: ['Evaluación integral', 'Toma de impresión', 'Colocación de corona/puente', 'Revisiones de control'],
       },
     ],
   },
@@ -384,10 +383,10 @@ export const business: BusinessConfig = {
   },
   formspreeId: 'cliente-dentalempresarial',
   seo: {
-    titulo: 'Dental Empresarial | Dentista en Los Mochis, Sinaloa',
+    titulo: 'Dental Empresarial | Consultorio Dental en Los Mochis',
     descripcion:
-      'Clínica dental en Los Mochis: ortodoncia, endodoncia, odontopediatría, estética dental e implantes. Más de 10 especialistas. Agenda tu cita por WhatsApp.',
-    ogImagen: 'https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=1200&q=80',
+      'Consultorio dental a precios accesibles en Los Mochis. 11 dentistas certificados, radiología digital y promociones mensuales. ¡Agenda tu cita!',
+    ogImagen: '/interior-02.jpg',
   },
 };
 
