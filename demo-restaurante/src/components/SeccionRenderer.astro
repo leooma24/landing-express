@@ -10,6 +10,8 @@
  */
 import HeroEditorial from '../sections/Hero/HeroEditorial.astro';
 import HeroSplit from '../sections/Hero/HeroSplit.astro';
+import HeroCorporativo from '../sections/Hero/HeroCorporativo.astro';
+import HeroClinico from '../sections/Hero/HeroClinico.astro';
 import ServiciosLista from '../sections/Servicios/ServiciosLista.astro';
 import ServiciosCards from '../sections/Servicios/ServiciosCards.astro';
 import ServiciosDosColumnas from '../sections/Servicios/ServiciosDosColumnas.astro';
@@ -31,7 +33,7 @@ interface Props {
 const { seccion, variantes } = Astro.props;
 
 const map: Record<string, Record<string, any>> = {
-  hero: { editorial: HeroEditorial, split: HeroSplit },
+  hero: { editorial: HeroEditorial, split: HeroSplit, corporativo: HeroCorporativo, clinico: HeroClinico },
   servicios: {
     lista: ServiciosLista,
     cards: ServiciosCards,

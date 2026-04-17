@@ -7,6 +7,7 @@ export interface Servicio {
   titulo: string;
   descripcion: string;
   precio?: string;
+  imagen?: string;
 }
 
 export interface Horario {
@@ -62,7 +63,7 @@ export type SeccionId =
   | 'testimonios';
 
 export type VariantePorSeccion = {
-  hero?: 'editorial' | 'split';
+  hero?: 'editorial' | 'split' | 'corporativo' | 'clinico';
   servicios?: 'lista' | 'cards' | 'dos-columnas';
   nosotros?: 'editorial';
   galeria?: 'masonry';
@@ -114,8 +115,18 @@ export interface BusinessConfig {
   };
   estructura: Estructura;
   logo: string;
+  logoTipo?: 'texto' | 'imagen';
   heroImagen: string;
   heroCtaTexto: string;
+  topBar?: boolean;
+  heroEyebrow?: string;
+  heroTitulo?: string;
+  heroTelefonoCta?: string;
+  trustStrip?: {
+    titulo: string;
+    valor?: string;
+    icono?: 'rating' | 'especialistas' | 'anos' | 'pagos' | 'verificado';
+  }[];
   servicios: Servicio[];
   sobreNosotros: {
     titulo: string;

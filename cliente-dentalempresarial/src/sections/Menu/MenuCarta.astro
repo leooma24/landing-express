@@ -1,0 +1,79 @@
+---
+/**
+ * Sección MENÚ (restaurantes, cafés, bares).
+ * Layout editorial tipo carta impresa: categorías, items, precios alineados derecha.
+ */
+import { business } from '../../config';
+
+const menu = business.menu;
+if (!menu) return Astro.response.status = 204;
+---
+
+{menu && (
+  <section id="menu" class="section-pad bg-fondo">
+    <div class="wrap-narrow">
+      <div class="section-divider" data-reveal="fade">
+        <p class="meta-label">{business.mostrarNumeros ? '02 · ' : ''}Carta</p>
+        <p class="meta-number">
+          {menu.categorias.reduce((sum, c) => sum + c.items.length, 0)} platillos
+        </p>
+      </div>
+
+      <div class="mb-16 max-w-2xl">
+        <h2 data-reveal="left" class="font-display text-display font-semibold text-texto">
+          {menu.titulo}
+        </h2>
+        {menu.descripcion && (
+          <p data-reveal="left" style="--reveal-delay: 150ms;" class="mt-5 text-base leading-relaxed text-tenue md:text-lg">
+            {menu.descripcion}
+          </p>
+        )}
+      </div>
+
+      <div class="space-y-20">
+        {menu.categorias.map((cat, catIdx) => (
+          <div data-reveal="fade">
+            <div class="mb-8 flex items-baseline justify-between border-b border-linea pb-4">
+              <h3 class="font-display text-2xl font-semibold tracking-tight text-texto md:text-3xl">
+                {cat.nombre}
+              </h3>
+              <p class="meta-number">
+                {String(catIdx + 1).padStart(2, '0')}
+              </p>
+            </div>
+
+            <ul class="divide-y divide-linea">
+              {cat.items.map((item, i) => (
+                <li
+                  data-reveal={i % 2 === 0 ? 'left' : 'right'}
+                  style={`--reveal-delay: ${i * 70}ms;`}
+                  class="group grid gap-4 py-5 md:grid-cols-[1fr_auto] md:items-baseline md:gap-8"
+                >
+                  <div class="min-w-0">
+                    <div class="flex items-baseline gap-3">
+                      <h4 class={`font-display text-lg font-semibold text-texto transition group-hover:text-primario md:text-xl ${item.destacado ? 'relative' : ''}`}>
+                        {item.nombre}
+                        {item.destacado && (
+                          <span class="ml-2 align-middle font-mono text-[10px] uppercase tracking-[0.15em] text-primario">★ recomendado</span>
+                        )}
+                      </h4>
+                      <span class="hidden flex-1 border-b border-dotted border-linea md:block"></span>
+                    </div>
+                    {item.descripcion && (
+                      <p class="mt-1 text-sm leading-relaxed text-tenue">
+                        {item.descripcion}
+                      </p>
+                    )}
+                  </div>
+                  <p class="font-mono text-base font-medium tabular-nums text-texto md:text-lg">
+                    {item.precio}
+                  </p>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+)}

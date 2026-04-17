@@ -14,12 +14,49 @@ const navLabels: Record<string, string> = {
 const navItems = business.estructura.orden
   .filter((id) => id !== 'hero' && id !== 'contacto' && navLabels[id])
   .map((id) => ({ id, label: navLabels[id] }));
+
+const horarioLV = business.horarios.find((h) => h.dia === 'Lunes');
+const horarioSab = business.horarios.find((h) => h.dia === 'Sábado');
+const horarioResumen =
+  horarioLV && horarioSab && !horarioLV.cerrado && !horarioSab.cerrado
+    ? `Lun-Vie ${horarioLV.apertura}-${horarioLV.cierre} · Sáb ${horarioSab.apertura}-${horarioSab.cierre}`
+    : null;
+
+const waHref = `https://wa.me/${business.whatsapp}?text=${encodeURIComponent(business.whatsappMensaje)}`;
+const telHref = `tel:${business.telefono.replace(/\s/g, '')}`;
 ---
 
 <header data-header class="sticky top-0 z-40 border-b border-transparent bg-fondo/70 backdrop-blur-xl transition-all duration-300 [&.is-scrolled]:border-texto/10 [&.is-scrolled]:bg-fondo/90">
+  {business.topBar && (
+    <div class="bg-texto text-fondo">
+      <div class="wrap flex h-9 items-center justify-between gap-4 text-[12px]">
+        <div class="flex items-center gap-4 overflow-hidden">
+          <a href={telHref} class="inline-flex items-center gap-1.5 font-medium transition hover:text-acento">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="h-3.5 w-3.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
+            </svg>
+            {business.telefono}
+          </a>
+          {horarioResumen && (
+            <span class="hidden text-fondo/70 md:inline">· {horarioResumen}</span>
+          )}
+        </div>
+        <a href={waHref} target="_blank" rel="noopener" class="hidden items-center gap-1.5 font-medium text-fondo transition hover:text-acento sm:inline-flex">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-3.5 w-3.5">
+            <path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24z" />
+          </svg>
+          Escríbenos por WhatsApp
+        </a>
+      </div>
+    </div>
+  )}
   <div class="wrap flex h-16 items-center justify-between">
-    <a href="#hero" class="flex items-baseline gap-2 font-display text-xl font-semibold tracking-tight text-texto">
-      {business.nombre}
+    <a href="#hero" class="flex items-center gap-2" aria-label={business.nombre}>
+      {business.logoTipo === 'imagen' ? (
+        <img src={business.logo} alt={business.nombre} class="h-9 w-auto md:h-10" />
+      ) : (
+        <span class="font-display text-xl font-semibold tracking-tight text-texto">{business.nombre}</span>
+      )}
     </a>
 
     <nav class="hidden items-center gap-1 md:flex">

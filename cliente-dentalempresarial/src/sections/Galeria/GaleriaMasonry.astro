@@ -1,0 +1,54 @@
+---
+import { business } from '../../config';
+
+const gallery = business.galeria.slice(0, 6);
+
+const sizeMap: string[] = [
+  'col-span-6 md:col-span-4 aspect-[4/3]',
+  'col-span-6 md:col-span-2 aspect-[3/4]',
+  'col-span-3 md:col-span-2 aspect-square',
+  'col-span-3 md:col-span-2 aspect-square',
+  'col-span-3 md:col-span-2 aspect-square',
+  'col-span-6 md:col-span-3 aspect-[16/10]',
+];
+---
+
+<section id="galeria" class="section-pad bg-superficie">
+  <div class="wrap">
+    <div class="section-divider" data-reveal="fade">
+      <p class="meta-label">{business.mostrarNumeros ? '03 · ' : ''}Galería</p>
+      <p class="meta-number">{business.galeria.length} piezas</p>
+    </div>
+
+    <div class="mb-16 max-w-2xl">
+      <h2 data-reveal="left" class="font-display text-display font-semibold text-texto">
+        Nuestro trabajo.
+      </h2>
+      <p data-reveal="left" style="--reveal-delay: 150ms;" class="mt-5 text-base leading-relaxed text-tenue md:text-lg">
+        Conoce nuestras instalaciones, nuestro equipo y lo que hacemos cada día.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-6 gap-2 md:gap-4">
+      {gallery.map((img, i) => (
+        <figure
+          data-reveal="image"
+          style={`--reveal-delay: ${i * 120}ms;`}
+          class={`reveal-image group relative overflow-hidden figure-shape ${sizeMap[i] ?? 'col-span-3 aspect-square'}`}
+        >
+          <img
+            src={img.src}
+            alt={img.alt}
+            class="h-full w-full object-cover transition duration-700 group-hover:scale-105"
+            loading={i < 2 ? 'eager' : 'lazy'}
+          />
+          {business.mostrarNumeros && (
+            <span class="absolute bottom-2 left-2 bg-texto/85 px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.15em] text-fondo opacity-0 backdrop-blur transition group-hover:opacity-100" style="border-radius: var(--radius-full);">
+              {String(i + 1).padStart(2, '0')}
+            </span>
+          )}
+        </figure>
+      ))}
+    </div>
+  </div>
+</section>

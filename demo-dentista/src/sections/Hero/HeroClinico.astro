@@ -1,0 +1,82 @@
+---
+/**
+ * Variante CLINICO del Hero.
+ * Inspirado en aspendental.com — titular centrado benefit-led,
+ * doble CTA, y debajo un grid con las 4 primeras entradas de `business.servicios`
+ * usando cada una su campo opcional `imagen`.
+ *
+ * Campos opcionales en config (ver HeroCorporativo para los compartidos):
+ *   heroEyebrow, heroTitulo, heroTelefonoCta
+ *   trustStrip  → si está presente se muestra entre el bloque central y las cards
+ *   servicios[].imagen → foto para cada card del grid inferior
+ */
+import { business } from '../../config';
+
+const waHref = `https://wa.me/${business.whatsapp}?text=${encodeURIComponent(business.whatsappMensaje)}`;
+const telHref = `tel:${business.telefono.replace(/\s/g, '')}`;
+
+const tituloHero = business.heroTitulo ?? business.nombre;
+const eyebrow = business.heroEyebrow;
+const telCta = business.heroTelefonoCta ?? business.telefono;
+
+const serviciosDestacados = business.servicios.slice(0, 4);
+---
+
+<section id="hero" class="relative bg-fondo pt-10 pb-8 md:pt-16 md:pb-12">
+  <div class="wrap">
+    <div class="mx-auto max-w-3xl text-center">
+      {eyebrow && (
+        <p data-reveal="fade" style="--reveal-delay: 80ms;" class="mb-6 inline-flex items-center gap-2 rounded-full border border-primario/20 bg-primario/5 px-3 py-1.5 text-[12px] font-medium text-primario">
+          <span class="h-1.5 w-1.5 rounded-full bg-primario"></span>
+          {eyebrow}
+        </p>
+      )}
+      <h1 data-reveal="up" style="--reveal-delay: 180ms;" class="mb-6 font-display text-[2.25rem] font-bold leading-[1.05] tracking-tight text-texto sm:text-5xl lg:text-[3.75rem]">
+        {tituloHero}
+      </h1>
+      <p data-reveal="up" style="--reveal-delay: 320ms;" class="mx-auto max-w-2xl text-base leading-relaxed text-tenue md:text-lg">
+        {business.descripcionCorta}
+      </p>
+      <div data-reveal="up" style="--reveal-delay: 460ms;" class="mt-8 flex flex-wrap items-center justify-center gap-3">
+        <a href={waHref} target="_blank" rel="noopener" class="btn-whatsapp">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-4 w-4">
+            <path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24z" />
+          </svg>
+          {business.heroCtaTexto}
+        </a>
+        <a href={telHref} class="inline-flex items-center gap-2 rounded-full border border-texto/15 px-5 py-3 text-sm font-medium text-texto transition hover:border-primario hover:text-primario">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="h-4 w-4">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
+          </svg>
+          {telCta}
+        </a>
+      </div>
+    </div>
+
+    {serviciosDestacados.length > 0 && (
+      <div data-reveal="fade" style="--reveal-delay: 580ms;" class="mt-14 grid grid-cols-2 gap-4 md:mt-20 md:grid-cols-4 md:gap-5">
+        {serviciosDestacados.map((s, i) => (
+          <a href="#servicios" class="group flex flex-col overflow-hidden rounded-2xl border border-linea bg-fondo transition hover:border-primario/40 hover:shadow-lg">
+            <div class="relative aspect-[4/3] overflow-hidden bg-superficie">
+              {s.imagen ? (
+                <img src={s.imagen} alt={s.titulo} class="h-full w-full object-cover transition duration-500 group-hover:scale-105" loading={i < 2 ? 'eager' : 'lazy'} />
+              ) : (
+                <div class="flex h-full w-full items-center justify-center bg-gradient-to-br from-primario/10 to-secundario/20">
+                  <span class="font-display text-4xl font-bold text-primario/40">{s.titulo.charAt(0)}</span>
+                </div>
+              )}
+            </div>
+            <div class="flex flex-1 items-start justify-between gap-3 p-4 md:p-5">
+              <h3 class="font-display text-sm font-semibold leading-snug text-texto md:text-base">{s.titulo}</h3>
+              <span aria-hidden="true" class="mt-0.5 shrink-0 text-primario transition group-hover:translate-x-0.5">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="h-4 w-4">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" />
+                </svg>
+              </span>
+            </div>
+          </a>
+        ))}
+      </div>
+    )}
+  </div>
+</section>
