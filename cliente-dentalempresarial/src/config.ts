@@ -193,13 +193,13 @@ export const business: BusinessConfig = {
     { dia: 'Domingo', apertura: '', cierre: '', cerrado: true },
   ],
   colores: {
-    primario: '29 78 216',
-    secundario: '30 58 138',
-    acento: '14 165 233',
+    primario: '1 82 101',
+    secundario: '24 147 175',
+    acento: '135 209 220',
     texto: '17 24 39',
     fondo: '255 255 255',
-    superficie: '243 244 246',
-    tenue: '107 114 128',
+    superficie: '243 244 244',
+    tenue: '99 100 102',
     linea: '229 231 235',
   },
   fuentes: {
