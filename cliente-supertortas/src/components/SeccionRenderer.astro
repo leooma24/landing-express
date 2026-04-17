@@ -7,14 +7,21 @@
  *   1. Crea el archivo en src/sections/{Seccion}/{Variante}.astro
  *   2. Impórtalo aquí arriba
  *   3. Agrégalo al `map` con la clave correcta
+ *   4. Mirror a landing-base + demo-* + cliente-* (mirror rule)
  */
 import HeroEditorial from '../sections/Hero/HeroEditorial.astro';
 import HeroSplit from '../sections/Hero/HeroSplit.astro';
 import HeroCorporativo from '../sections/Hero/HeroCorporativo.astro';
 import HeroClinico from '../sections/Hero/HeroClinico.astro';
+import HeroMagazine from '../sections/Hero/HeroMagazine.astro';
+import HeroBoutique from '../sections/Hero/HeroBoutique.astro';
+import HeroAmable from '../sections/Hero/HeroAmable.astro';
+import ManifiestoEditorial from '../sections/Manifiesto/ManifiestoEditorial.astro';
 import ServiciosLista from '../sections/Servicios/ServiciosLista.astro';
 import ServiciosCards from '../sections/Servicios/ServiciosCards.astro';
 import ServiciosDosColumnas from '../sections/Servicios/ServiciosDosColumnas.astro';
+import ServiciosBento from '../sections/Servicios/ServiciosBento.astro';
+import ServiciosImageCards from '../sections/Servicios/ServiciosImageCards.astro';
 import NosotrosEditorial from '../sections/Nosotros/NosotrosEditorial.astro';
 import GaleriaMasonry from '../sections/Galeria/GaleriaMasonry.astro';
 import UbicacionEditorial from '../sections/Ubicacion/UbicacionEditorial.astro';
@@ -22,6 +29,10 @@ import ContactoEditorial from '../sections/Contacto/ContactoEditorial.astro';
 import MenuCarta from '../sections/Menu/MenuCarta.astro';
 import TratamientosLista from '../sections/Tratamientos/TratamientosLista.astro';
 import TestimoniosGrid from '../sections/Testimonios/TestimoniosGrid.astro';
+import TestimoniosCarousel from '../sections/Testimonios/TestimoniosCarousel.astro';
+import PorQueElegirnosCards from '../sections/PorQueElegirnos/PorQueElegirnosCards.astro';
+import FaqAccordion from '../sections/Faq/FaqAccordion.astro';
+import CtaBanner from '../sections/CtaFinal/CtaBanner.astro';
 
 import type { SeccionId, VariantePorSeccion } from '../config';
 
@@ -33,11 +44,14 @@ interface Props {
 const { seccion, variantes } = Astro.props;
 
 const map: Record<string, Record<string, any>> = {
-  hero: { editorial: HeroEditorial, split: HeroSplit, corporativo: HeroCorporativo, clinico: HeroClinico },
+  hero: { editorial: HeroEditorial, split: HeroSplit, corporativo: HeroCorporativo, clinico: HeroClinico, magazine: HeroMagazine, boutique: HeroBoutique, amable: HeroAmable },
+  manifiesto: { editorial: ManifiestoEditorial },
   servicios: {
     lista: ServiciosLista,
     cards: ServiciosCards,
     'dos-columnas': ServiciosDosColumnas,
+    bento: ServiciosBento,
+    'image-cards': ServiciosImageCards,
   },
   nosotros: { editorial: NosotrosEditorial },
   galeria: { masonry: GaleriaMasonry },
@@ -45,7 +59,10 @@ const map: Record<string, Record<string, any>> = {
   contacto: { editorial: ContactoEditorial },
   menu: { carta: MenuCarta },
   tratamientos: { lista: TratamientosLista },
-  testimonios: { grid: TestimoniosGrid },
+  testimonios: { grid: TestimoniosGrid, carousel: TestimoniosCarousel },
+  porQueElegirnos: { cards: PorQueElegirnosCards },
+  faq: { accordion: FaqAccordion },
+  ctaFinal: { banner: CtaBanner },
 };
 
 const defaultVariant: Record<string, string> = {
@@ -58,6 +75,10 @@ const defaultVariant: Record<string, string> = {
   menu: 'carta',
   tratamientos: 'lista',
   testimonios: 'grid',
+  manifiesto: 'editorial',
+  porQueElegirnos: 'cards',
+  faq: 'accordion',
+  ctaFinal: 'banner',
 };
 
 const variante = (variantes[seccion] as string | undefined) ?? defaultVariant[seccion];

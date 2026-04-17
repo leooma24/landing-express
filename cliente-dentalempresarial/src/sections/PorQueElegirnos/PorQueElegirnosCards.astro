@@ -1,0 +1,82 @@
+---
+/**
+ * PorQueElegirnos — variante CARDS.
+ * 4 value props con iconos custom duotone, layout grid simétrico.
+ * Patrón Friendly Family Ortho.
+ */
+import { business } from '../../config';
+
+const data = (business as any).porQueElegirnos;
+const titulo = data?.titulo ?? '¿Por qué elegir nuestro consultorio?';
+const descripcion = data?.descripcion ?? 'Lo que hace diferente la experiencia con nosotros.';
+const items = data?.items ?? [];
+
+function iconPath(icono?: string) {
+  switch (icono) {
+    case 'corazon':
+      return 'M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z';
+    case 'tecnologia':
+      return 'M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z';
+    case 'verificado':
+      return 'M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z';
+    case 'pagos':
+      return 'M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z';
+    case 'tiempo':
+      return 'M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z';
+    case 'sonrisa':
+      return 'M15.182 15.182a4.5 4.5 0 01-6.364 0M21 12a9 9 0 11-18 0 9 9 0 0118 0zM9.75 9.75c0 .414-.168.75-.375.75S9 10.164 9 9.75 9.168 9 9.375 9s.375.336.375.75zm-.375 0h.008v.015h-.008V9.75zm5.625 0c0 .414-.168.75-.375.75s-.375-.336-.375-.75.168-.75.375-.75.375.336.375.75zm-.375 0h.008v.015h-.008V9.75z';
+    case 'familia':
+      return 'M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z';
+    case 'estrella':
+      return 'M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.322.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.562.562 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.562.562 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z';
+    default:
+      return 'M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z';
+  }
+}
+---
+
+<section id="por-que-elegirnos" class="section-pad bg-superficie/40">
+  <div class="wrap">
+    <div class="mx-auto mb-16 max-w-2xl text-center md:mb-20">
+      <p data-reveal="up" class="font-mono text-[11px] font-semibold uppercase tracking-[0.24em] text-primario">
+        ¿Por qué elegirnos?
+      </p>
+      <h2 data-reveal="up" style="--reveal-delay: 100ms;" class="mt-4 font-display text-3xl font-bold tracking-tight text-texto md:text-[2.5rem] md:leading-tight">
+        {titulo}
+      </h2>
+      {descripcion && (
+        <p data-reveal="up" style="--reveal-delay: 200ms;" class="mt-5 text-base leading-relaxed text-tenue md:text-lg">
+          {descripcion}
+        </p>
+      )}
+    </div>
+
+    <div class="grid gap-5 md:grid-cols-2 lg:grid-cols-4 lg:gap-6">
+      {items.map((item: any, i: number) => (
+        <article
+          data-reveal="up"
+          style={`--reveal-delay: ${i * 100}ms;`}
+          class="group relative flex flex-col bg-fondo p-7 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_20px_50px_-15px_rgba(14,165,233,0.25)] md:p-8"
+          style-extra="border-radius: var(--radius-lg);"
+        >
+          <span class="mb-6 inline-flex h-14 w-14 items-center justify-center bg-primario/10 text-primario transition-colors group-hover:bg-primario group-hover:text-white" style="border-radius: var(--radius-lg);">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="h-7 w-7">
+              <path stroke-linecap="round" stroke-linejoin="round" d={iconPath(item.icono)} />
+            </svg>
+          </span>
+          <h3 class="font-display text-lg font-bold leading-tight text-texto md:text-xl">
+            {item.titulo}
+          </h3>
+          <p class="mt-3 text-[14px] leading-relaxed text-tenue md:text-[15px]">
+            {item.descripcion}
+          </p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style is:global>
+  #por-que-elegirnos article { border-radius: var(--radius-lg); }
+  #por-que-elegirnos article > span:first-child { border-radius: var(--radius-md); }
+</style>

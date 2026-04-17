@@ -1,0 +1,62 @@
+---
+/**
+ * CtaFinal — variante BANNER.
+ * Full-width banner antes del footer con gradient sutil + decoración.
+ * Patrón Friendly Family Ortho.
+ */
+import { business } from '../../config';
+
+const data = (business as any).ctaFinal;
+const titulo = data?.titulo ?? '¿Listo para iniciar tu sonrisa?';
+const descripcion = data?.descripcion ?? 'Agenda tu valoración inicial. Resolvemos todas tus dudas y diseñamos un plan a tu medida.';
+const ctaTexto = data?.ctaTexto ?? business.heroCtaTexto;
+
+const waHref = `https://wa.me/${business.whatsapp}?text=${encodeURIComponent(business.whatsappMensaje)}`;
+const telHref = `tel:${business.telefono.replace(/\s/g, '')}`;
+---
+
+<section id="cta-final" class="section-pad relative overflow-hidden bg-secundario text-white">
+  {/* Decorative blobs */}
+  <div class="pointer-events-none absolute -right-32 -top-20 h-80 w-80 rounded-full bg-acento/30 blur-3xl"></div>
+  <div class="pointer-events-none absolute -bottom-32 -left-40 h-96 w-96 rounded-full bg-primario/40 blur-3xl"></div>
+
+  <div class="wrap relative">
+    <div class="mx-auto max-w-3xl text-center">
+      <p data-reveal="up" class="font-mono text-[11px] font-semibold uppercase tracking-[0.24em] text-acento">
+        Tu primer paso
+      </p>
+      <h2
+        data-reveal="up"
+        style="--reveal-delay: 120ms;"
+        class="mt-5 font-display text-3xl font-bold leading-tight tracking-tight text-white md:text-5xl"
+      >
+        {titulo}
+      </h2>
+      <p data-reveal="up" style="--reveal-delay: 240ms;" class="mt-6 text-base leading-relaxed text-white/85 md:text-lg">
+        {descripcion}
+      </p>
+
+      <div data-reveal="up" style="--reveal-delay: 360ms;" class="mt-10 flex flex-wrap items-center justify-center gap-4">
+        <a
+          href={waHref}
+          target="_blank"
+          rel="noopener"
+          class="group inline-flex items-center gap-3 bg-acento px-7 py-4 text-base font-semibold text-white shadow-[0_12px_32px_-8px_rgba(0,0,0,0.3)] transition-all duration-300 hover:bg-white hover:text-acento hover:-translate-y-0.5"
+          style="border-radius: var(--radius-full);"
+        >
+          <span>{ctaTexto}</span>
+          <span class="inline-block transition-transform duration-300 group-hover:translate-x-1">→</span>
+        </a>
+        <a
+          href={telHref}
+          class="inline-flex items-center gap-2.5 px-5 py-4 text-base font-semibold text-white/95 transition hover:text-white"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="h-5 w-5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
+          </svg>
+          <span class="border-b border-white/40 pb-0.5">{business.telefono}</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

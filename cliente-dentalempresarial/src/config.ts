@@ -61,18 +61,26 @@ export type SeccionId =
   | 'contacto'
   | 'menu'
   | 'tratamientos'
-  | 'testimonios';
+  | 'testimonios'
+  | 'manifiesto'
+  | 'porQueElegirnos'
+  | 'faq'
+  | 'ctaFinal';
 
 export type VariantePorSeccion = {
-  hero?: 'editorial' | 'split' | 'corporativo' | 'clinico';
-  servicios?: 'lista' | 'cards' | 'dos-columnas';
+  hero?: 'editorial' | 'split' | 'corporativo' | 'clinico' | 'magazine' | 'boutique' | 'amable';
+  servicios?: 'lista' | 'cards' | 'dos-columnas' | 'bento' | 'image-cards';
   nosotros?: 'editorial';
   galeria?: 'masonry';
   ubicacion?: 'editorial';
   contacto?: 'editorial';
   menu?: 'carta';
   tratamientos?: 'lista';
-  testimonios?: 'grid';
+  testimonios?: 'grid' | 'carousel';
+  manifiesto?: 'editorial';
+  porQueElegirnos?: 'cards';
+  faq?: 'accordion';
+  ctaFinal?: 'banner';
 };
 
 export interface Estructura {
@@ -151,6 +159,33 @@ export interface BusinessConfig {
     titulo: string;
     descripcion?: string;
     lista: Testimonio[];
+  };
+  manifiesto?: {
+    eyebrow?: string;
+    texto: string;
+    atribucion?: string;
+  };
+  porQueElegirnos?: {
+    titulo?: string;
+    descripcion?: string;
+    items: {
+      titulo: string;
+      descripcion: string;
+      icono?: 'corazon' | 'tecnologia' | 'verificado' | 'pagos' | 'tiempo' | 'sonrisa' | 'familia' | 'estrella';
+    }[];
+  };
+  faq?: {
+    titulo?: string;
+    descripcion?: string;
+    items: {
+      pregunta: string;
+      respuesta: string;
+    }[];
+  };
+  ctaFinal?: {
+    titulo?: string;
+    descripcion?: string;
+    ctaTexto?: string;
   };
   redes: {
     facebook?: string;

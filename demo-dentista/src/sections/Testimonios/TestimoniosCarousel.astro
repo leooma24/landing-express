@@ -1,0 +1,158 @@
+---
+/**
+ * Testimonios — variante CAROUSEL.
+ * Auto-rotating quotes con dots indicators.
+ * Patrón Friendly Family Ortho.
+ * Solo se muestra si hay testimonios reales en config.
+ */
+import { business } from '../../config';
+
+const data = business.testimonios;
+const titulo = data?.titulo ?? 'Lo que dicen nuestros pacientes';
+const descripcion = data?.descripcion;
+const items = data?.lista ?? [];
+---
+
+{items.length > 0 && (
+  <section id="testimonios" class="section-pad bg-fondo">
+    <div class="wrap">
+      <div class="mx-auto mb-14 max-w-2xl text-center md:mb-16">
+        <p data-reveal="up" class="font-mono text-[11px] font-semibold uppercase tracking-[0.24em] text-primario">
+          Pacientes felices
+        </p>
+        <h2 data-reveal="up" style="--reveal-delay: 100ms;" class="mt-4 font-display text-3xl font-bold tracking-tight text-texto md:text-[2.5rem] md:leading-tight">
+          {titulo}
+        </h2>
+        {descripcion && (
+          <p data-reveal="up" style="--reveal-delay: 200ms;" class="mt-5 text-base leading-relaxed text-tenue md:text-lg">
+            {descripcion}
+          </p>
+        )}
+      </div>
+
+      <div data-reveal="up" style="--reveal-delay: 200ms;" class="testimonios-carousel relative mx-auto max-w-4xl" data-count={items.length}>
+        <div class="testimonios-track relative">
+          {items.map((t, i) => (
+            <article
+              class="testimonios-slide bg-superficie/60 p-8 text-center transition-opacity duration-500 md:p-12"
+              style="border-radius: var(--radius-lg);"
+              data-index={i}
+            >
+              {/* Star rating */}
+              {t.estrellas && (
+                <div class="mb-6 flex justify-center gap-1 text-acento">
+                  {Array.from({ length: t.estrellas }).map(() => (
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-5 w-5">
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.957a1 1 0 00.95.69h4.162c.969 0 1.371 1.24.588 1.81l-3.366 2.446a1 1 0 00-.363 1.118l1.286 3.957c.3.921-.755 1.688-1.539 1.118l-3.366-2.446a1 1 0 00-1.176 0l-3.366 2.446c-.784.57-1.838-.197-1.539-1.118l1.286-3.957a1 1 0 00-.363-1.118L2.05 9.384c-.783-.57-.38-1.81.588-1.81h4.162a1 1 0 00.95-.69l1.286-3.957z" />
+                    </svg>
+                  ))}
+                </div>
+              )}
+
+              <blockquote class="font-display text-xl font-medium leading-relaxed text-texto md:text-2xl md:leading-[1.4]">
+                "{t.texto}"
+              </blockquote>
+
+              <div class="mt-8 flex items-center justify-center gap-3">
+                {t.foto && (
+                  <img src={t.foto} alt={t.nombre} class="h-12 w-12 rounded-full object-cover" loading="lazy" />
+                )}
+                <div class={t.foto ? 'text-left' : ''}>
+                  <p class="font-display text-base font-semibold text-texto">{t.nombre}</p>
+                  {t.tratamiento && (
+                    <p class="text-[13px] text-tenue">{t.tratamiento}</p>
+                  )}
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        {items.length > 1 && (
+          <div class="mt-8 flex items-center justify-center gap-2 testimonios-dots">
+            {items.map((_, i) => (
+              <button
+                type="button"
+                class="testimonios-dot h-2.5 w-2.5 rounded-full bg-tenue/40 transition-all hover:bg-tenue"
+                data-index={i}
+                aria-label={`Ir a testimonio ${i + 1}`}
+              />
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+
+    <style>
+      .testimonios-track {
+        position: relative;
+        min-height: 320px;
+      }
+
+      .testimonios-slide {
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      .testimonios-slide.is-active {
+        opacity: 1;
+        pointer-events: auto;
+        position: relative;
+      }
+
+      .testimonios-dot.is-active {
+        background-color: rgb(var(--color-primario));
+        width: 24px;
+        border-radius: 9999px;
+      }
+    </style>
+
+    <script is:inline>
+      (function () {
+        const carousels = document.querySelectorAll('.testimonios-carousel');
+        carousels.forEach((c) => {
+          const slides = c.querySelectorAll('.testimonios-slide');
+          const dots = c.querySelectorAll('.testimonios-dot');
+          if (!slides.length) return;
+          let active = 0;
+          let timer = null;
+
+          function setActive(i) {
+            slides.forEach((s, idx) => s.classList.toggle('is-active', idx === i));
+            dots.forEach((d, idx) => d.classList.toggle('is-active', idx === i));
+            active = i;
+          }
+
+          function next() {
+            setActive((active + 1) % slides.length);
+          }
+
+          function start() {
+            stop();
+            if (slides.length > 1) timer = setInterval(next, 5500);
+          }
+
+          function stop() {
+            if (timer) clearInterval(timer);
+            timer = null;
+          }
+
+          dots.forEach((d, i) => {
+            d.addEventListener('click', () => {
+              setActive(i);
+              start();
+            });
+          });
+
+          c.addEventListener('mouseenter', stop);
+          c.addEventListener('mouseleave', start);
+
+          setActive(0);
+          start();
+        });
+      })();
+    </script>
+  </section>
+)}

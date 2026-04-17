@@ -1,0 +1,166 @@
+---
+/**
+ * Variante BOUTIQUE del Hero.
+ * Full-bleed warm con headline serif gigante asimétrico,
+ * etiqueta vertical lateral y CTA único redondo.
+ * Inspirado en boutique orthodontic practices premium (Tia + Aesop + Joshua Davis).
+ *
+ * Layout:
+ *   - Background warm cream + suave mesh gradient
+ *   - Vertical label "EST. / SPECIALIST" en lateral izquierdo
+ *   - Headline serif XXL ocupando 7-9 columnas, italic en palabra clave
+ *   - Subhead + CTA único en lower-left
+ *   - Imagen retrato gran formato derecha con borde fino y label inferior
+ *   - Trust strip pequeño abajo, sin marquee (separación de la marquee del HeroMagazine)
+ */
+import { business } from '../../config';
+
+const waHref = `https://wa.me/${business.whatsapp}?text=${encodeURIComponent(business.whatsappMensaje)}`;
+const telHref = `tel:${business.telefono.replace(/\s/g, '')}`;
+
+const tituloHero = business.heroTitulo ?? business.nombre;
+const eyebrow = business.heroEyebrow;
+const trust = business.trustStrip ?? [];
+
+const palabras = tituloHero.split(' ');
+const indiceAcento = Math.max(2, Math.floor(palabras.length / 2));
+---
+
+<section id="hero" class="relative overflow-hidden bg-fondo">
+  {/* Soft mesh gradient — capa decorativa premium */}
+  <div class="hero-mesh pointer-events-none absolute inset-0 -z-10"></div>
+
+  <div class="relative">
+    {/* Vertical label izquierdo */}
+    <div class="absolute left-4 top-1/2 hidden -translate-y-1/2 lg:left-8 lg:block">
+      <p class="rotate-180 font-mono text-[10px] font-medium uppercase tracking-[0.36em] text-tenue" style="writing-mode: vertical-rl;">
+        Especialista · Ortodoncia · {business.direccion.ciudad}
+      </p>
+    </div>
+
+    <div class="wrap pt-32 pb-16 md:pt-36 md:pb-24 lg:pl-24">
+      <div class="grid items-end gap-12 lg:grid-cols-12 lg:gap-10">
+        {/* Columna izquierda: headline + lockup */}
+        <div class="lg:col-span-7 lg:pr-8">
+          {eyebrow && (
+            <div data-reveal="up" style="--reveal-delay: 60ms;" class="mb-10 flex items-center gap-3">
+              <span class="block h-px w-8 bg-acento"></span>
+              <p class="font-mono text-[10px] font-medium uppercase tracking-[0.28em] text-acento">
+                {eyebrow}
+              </p>
+            </div>
+          )}
+
+          <h1
+            data-reveal="up"
+            style="--reveal-delay: 200ms;"
+            class="hero-headline font-display font-medium text-texto"
+          >
+            {palabras.map((word, i) => {
+              const isAccent = i === indiceAcento;
+              return (
+                <>
+                  <span class={isAccent ? 'italic font-normal text-acento' : ''}>{word}</span>
+                  {i < palabras.length - 1 ? ' ' : ''}
+                </>
+              );
+            })}
+          </h1>
+
+          <div data-reveal="up" style="--reveal-delay: 380ms;" class="mt-12 grid items-start gap-10 md:grid-cols-12 md:gap-8">
+            <p class="text-[15px] leading-relaxed text-tenue md:col-span-7 md:text-base">
+              {business.descripcionCorta}
+            </p>
+
+            <div class="md:col-span-5">
+              <a
+                href={waHref}
+                target="_blank"
+                rel="noopener"
+                class="group inline-flex items-center gap-3 bg-texto px-6 py-3.5 text-fondo transition-all duration-300 hover:bg-acento"
+                style="border-radius: var(--radius-full);"
+              >
+                <span class="text-[13px] font-medium tracking-wide">{business.heroCtaTexto}</span>
+                <span class="ml-1 inline-block transition-transform duration-300 group-hover:translate-x-1">→</span>
+              </a>
+              <a href={telHref} class="mt-4 block font-mono text-[11px] uppercase tracking-[0.18em] text-tenue transition hover:text-texto">
+                o llama: {business.telefono}
+              </a>
+            </div>
+          </div>
+        </div>
+
+        {/* Columna derecha: portrait con marco editorial */}
+        <figure
+          data-reveal="image"
+          style="--reveal-delay: 350ms;"
+          class="reveal-image relative lg:col-span-5"
+        >
+          <div class="relative aspect-[4/5] overflow-hidden">
+            <img
+              src={business.heroImagen}
+              alt={business.nombre}
+              class="h-full w-full object-cover"
+              loading="eager"
+              fetchpriority="high"
+            />
+            {/* thin frame inset */}
+            <div class="pointer-events-none absolute inset-2 ring-1 ring-inset ring-fondo/40"></div>
+          </div>
+
+          {/* Label inferior — catálogo style */}
+          <div class="mt-4 flex items-center justify-between border-t border-linea pt-3">
+            <p class="font-mono text-[10px] uppercase tracking-[0.22em] text-tenue">
+              Plate 01 · {business.nombre}
+            </p>
+            <p class="font-display text-sm italic text-tenue">
+              Los Mochis, MX
+            </p>
+          </div>
+        </figure>
+      </div>
+
+      {/* Trust signals — minimalistas, sin iconos */}
+      {trust.length > 0 && (
+        <div data-reveal="fade" style="--reveal-delay: 600ms;" class="mt-20 grid grid-cols-2 gap-y-6 border-t border-linea pt-10 md:mt-24 md:grid-cols-4 md:gap-x-10 md:pt-12">
+          {trust.map((item) => (
+            <div class="flex flex-col gap-1.5">
+              {item.valor && (
+                <p class="font-display text-2xl font-medium leading-none tracking-tight text-texto md:text-3xl">
+                  {item.valor}
+                </p>
+              )}
+              <p class="text-[12px] leading-snug text-tenue md:text-[13px]">
+                {item.titulo}
+              </p>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero-mesh {
+    background:
+      radial-gradient(60% 50% at 15% 20%, rgb(var(--color-acento) / 0.12), transparent 70%),
+      radial-gradient(50% 40% at 85% 80%, rgb(var(--color-primario) / 0.08), transparent 70%),
+      radial-gradient(40% 30% at 50% 100%, rgb(var(--color-superficie)) , transparent 70%);
+    filter: blur(0.5px);
+  }
+
+  .hero-headline {
+    font-size: clamp(3rem, 9vw, 7.5rem);
+    line-height: 0.92;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+
+  @media (max-width: 640px) {
+    .hero-headline {
+      font-size: clamp(2.5rem, 12vw, 4rem);
+      line-height: 0.98;
+    }
+  }
+</style>

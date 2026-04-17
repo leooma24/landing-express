@@ -1,0 +1,86 @@
+---
+/**
+ * FAQ — variante ACCORDION.
+ * Native <details> elements con animación smooth open/close.
+ * Patrón Friendly Family Ortho.
+ */
+import { business } from '../../config';
+
+const data = (business as any).faq;
+const titulo = data?.titulo ?? 'Preguntas frecuentes';
+const descripcion = data?.descripcion;
+const items = data?.items ?? [];
+---
+
+<section id="faq" class="section-pad bg-superficie/40">
+  <div class="wrap">
+    <div class="grid gap-12 lg:grid-cols-12 lg:gap-16">
+      <div class="lg:col-span-4">
+        <div class="lg:sticky lg:top-28">
+          <p data-reveal="up" class="font-mono text-[11px] font-semibold uppercase tracking-[0.24em] text-primario">
+            Resolvemos dudas
+          </p>
+          <h2 data-reveal="up" style="--reveal-delay: 100ms;" class="mt-4 font-display text-3xl font-bold tracking-tight text-texto md:text-[2.25rem] md:leading-tight">
+            {titulo}
+          </h2>
+          {descripcion && (
+            <p data-reveal="up" style="--reveal-delay: 200ms;" class="mt-5 text-[15px] leading-relaxed text-tenue">
+              {descripcion}
+            </p>
+          )}
+        </div>
+      </div>
+
+      <div class="lg:col-span-8">
+        <div class="divide-y divide-linea border-y border-linea">
+          {items.map((item: any, i: number) => (
+            <details
+              data-reveal="up"
+              style={`--reveal-delay: ${i * 60}ms;`}
+              class="faq-item group py-6"
+            >
+              <summary class="flex cursor-pointer list-none items-start justify-between gap-6 font-display text-lg font-semibold text-texto transition-colors hover:text-primario md:text-xl">
+                <span class="flex-1">{item.pregunta}</span>
+                <span class="faq-icon mt-1 inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-linea text-primario transition-all group-hover:border-primario group-open:bg-primario group-open:text-white group-open:rotate-45">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-3.5 w-3.5">
+                    <path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z" />
+                  </svg>
+                </span>
+              </summary>
+              <div class="faq-content mt-4 max-w-2xl text-[15px] leading-relaxed text-tenue">
+                {item.respuesta}
+              </div>
+            </details>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .faq-item summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-content {
+    animation: faq-in 0.32s ease-out;
+  }
+
+  @keyframes faq-in {
+    from {
+      opacity: 0;
+      transform: translateY(-4px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .faq-content {
+      animation: none;
+    }
+  }
+</style>
