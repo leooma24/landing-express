@@ -378,8 +378,7 @@ export const business: BusinessConfig = {
     ],
   },
   redes: {
-    facebook: 'https://www.facebook.com/dentalempresarial',
-    instagram: 'https://www.instagram.com/dentalempresarial',
+    facebook: 'https://www.facebook.com/dental.empresarial',
   },
   formspreeId: 'cliente-dentalempresarial',
   seo: {
