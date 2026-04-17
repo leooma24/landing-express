@@ -116,6 +116,7 @@ export interface BusinessConfig {
   estructura: Estructura;
   logo: string;
   logoTipo?: 'texto' | 'imagen';
+  tipoNegocio?: 'LocalBusiness' | 'Dentist' | 'MedicalBusiness' | 'Restaurant' | 'Store' | 'BeautySalon' | 'HealthAndBeautyBusiness' | 'AutomotiveBusiness' | string;
   heroImagen: string;
   heroCtaTexto: string;
   topBar?: boolean;

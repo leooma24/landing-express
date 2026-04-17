@@ -117,6 +117,7 @@ export interface BusinessConfig {
   estructura: Estructura;
   logo: string;
   logoTipo?: 'texto' | 'imagen';
+  tipoNegocio?: 'LocalBusiness' | 'Dentist' | 'MedicalBusiness' | 'Restaurant' | 'Store' | 'BeautySalon' | 'HealthAndBeautyBusiness' | 'AutomotiveBusiness' | string;
   heroImagen: string;
   heroCtaTexto: string;
   topBar?: boolean;
@@ -234,6 +235,7 @@ export const business: BusinessConfig = {
   },
   logo: '/logo-dental.png',
   logoTipo: 'imagen',
+  tipoNegocio: 'Dentist',
   heroImagen: '/interior-02.jpg',
   heroCtaTexto: 'Agendar por WhatsApp',
   topBar: true,

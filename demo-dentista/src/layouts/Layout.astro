@@ -11,8 +11,51 @@ const { title, description } = Astro.props;
 const pageTitle = title ?? business.seo.titulo;
 const pageDescription = description ?? business.seo.descripcion;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site).toString();
+const ogImageURL = new URL(business.seo.ogImagen, Astro.site).toString();
 
 const animacionesEntrada = business.animaciones?.entrada !== false;
+
+// Schema.org JSON-LD — se construye automáticamente desde el config.
+const diasES_EN: Record<string, string> = {
+  Lunes: 'Monday',
+  Martes: 'Tuesday',
+  Miércoles: 'Wednesday',
+  Jueves: 'Thursday',
+  Viernes: 'Friday',
+  Sábado: 'Saturday',
+  Domingo: 'Sunday',
+};
+const tipoNegocio = business.tipoNegocio ?? 'LocalBusiness';
+const sameAs = Object.values(business.redes).filter(Boolean) as string[];
+const openingHours = business.horarios
+  .filter((h) => !h.cerrado && h.apertura && h.cierre && diasES_EN[h.dia])
+  .map((h) => ({
+    '@type': 'OpeningHoursSpecification',
+    dayOfWeek: diasES_EN[h.dia],
+    opens: h.apertura,
+    closes: h.cierre,
+  }));
+const ldJson: Record<string, unknown> = {
+  '@context': 'https://schema.org',
+  '@type': tipoNegocio,
+  name: business.nombre,
+  description: business.descripcionCorta,
+  url: canonicalURL,
+  image: ogImageURL,
+  telephone: business.telefono,
+  email: business.email,
+  priceRange: '$$',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: business.direccion.calle,
+    addressLocality: business.direccion.ciudad,
+    addressRegion: business.direccion.estado,
+    postalCode: business.direccion.codigoPostal,
+    addressCountry: 'MX',
+  },
+};
+if (openingHours.length) ldJson.openingHoursSpecification = openingHours;
+if (sameAs.length) ldJson.sameAs = sameAs;
 
 const densidad = densidadTokens[business.densidad];
 const bordes = bordesTokens[business.bordes];
@@ -65,9 +108,16 @@ const waHref = `https://wa.me/${business.whatsapp}?text=${encodeURIComponent(bus
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={pageDescription} />
-    <meta property="og:image" content={new URL(business.seo.ogImagen, Astro.site).toString()} />
+    <meta property="og:image" content={ogImageURL} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
     <meta property="og:locale" content="es_MX" />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={pageDescription} />
+    <meta name="twitter:image" content={ogImageURL} />
+
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(ldJson)}></script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
