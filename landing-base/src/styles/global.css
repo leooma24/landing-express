@@ -76,7 +76,7 @@
   }
 
   .btn-primary {
-    @apply btn bg-texto text-fondo hover:bg-primario;
+    @apply btn bg-primario text-white hover:bg-secundario;
   }
 
   .btn-accent {
