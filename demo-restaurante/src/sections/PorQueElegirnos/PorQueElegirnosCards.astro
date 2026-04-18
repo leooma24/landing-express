@@ -35,7 +35,10 @@ function iconPath(icono?: string) {
 }
 ---
 
-<section id="por-que-elegirnos" class="section-pad bg-superficie/40">
+<section id="por-que-elegirnos" class="section-pad relative overflow-hidden bg-fondo">
+  {/* Soft gradient backdrop for the section to anchor cards visually */}
+  <div class="pointer-events-none absolute inset-x-0 top-1/4 -z-10 mx-auto h-[60%] max-w-5xl bg-gradient-to-br from-primario/8 via-transparent to-acento/8 blur-3xl"></div>
+
   <div class="wrap">
     <div class="mx-auto mb-16 max-w-2xl text-center md:mb-20">
       <p data-reveal="up" class="font-mono text-[11px] font-semibold uppercase tracking-[0.24em] text-primario">
@@ -52,31 +55,40 @@ function iconPath(icono?: string) {
     </div>
 
     <div class="grid gap-5 md:grid-cols-2 lg:grid-cols-4 lg:gap-6">
-      {items.map((item: any, i: number) => (
-        <article
-          data-reveal="up"
-          style={`--reveal-delay: ${i * 100}ms;`}
-          class="group relative flex flex-col bg-fondo p-7 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_20px_50px_-15px_rgba(14,165,233,0.25)] md:p-8"
-          style-extra="border-radius: var(--radius-lg);"
-        >
-          <span class="mb-6 inline-flex h-14 w-14 items-center justify-center bg-primario/10 text-primario transition-colors group-hover:bg-primario group-hover:text-white" style="border-radius: var(--radius-lg);">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="h-7 w-7">
-              <path stroke-linecap="round" stroke-linejoin="round" d={iconPath(item.icono)} />
-            </svg>
-          </span>
-          <h3 class="font-display text-lg font-bold leading-tight text-texto md:text-xl">
-            {item.titulo}
-          </h3>
-          <p class="mt-3 text-[14px] leading-relaxed text-tenue md:text-[15px]">
-            {item.descripcion}
-          </p>
-        </article>
-      ))}
+      {items.map((item: any, i: number) => {
+        // Alternate accent color per card for visual rhythm
+        const accentTop = i % 2 === 0 ? 'bg-primario' : 'bg-acento';
+        const iconBg = i % 2 === 0 ? 'bg-primario' : 'bg-acento';
+        return (
+          <article
+            data-reveal="up"
+            style={`--reveal-delay: ${i * 100}ms;`}
+            class="group relative flex flex-col overflow-hidden border border-linea bg-fondo p-7 shadow-[0_8px_30px_-12px_rgba(14,165,233,0.15)] transition-all duration-300 hover:-translate-y-2 hover:border-primario/30 hover:shadow-[0_30px_70px_-20px_rgba(14,165,233,0.35)] md:p-8"
+            style-extra="border-radius: var(--radius-lg);"
+          >
+            {/* Top accent strip — alternates teal/coral */}
+            <span class={`absolute inset-x-0 top-0 h-1 ${accentTop} opacity-90 transition-all duration-300 group-hover:h-1.5`}></span>
+
+            <span class={`mb-6 inline-flex h-14 w-14 items-center justify-center text-white shadow-[0_6px_20px_-6px_rgba(14,165,233,0.45)] transition-transform duration-300 group-hover:scale-105 ${iconBg}`} style="border-radius: var(--radius-md);">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="h-7 w-7">
+                <path stroke-linecap="round" stroke-linejoin="round" d={iconPath(item.icono)} />
+              </svg>
+            </span>
+
+            <h3 class="font-display text-lg font-bold leading-tight text-texto md:text-xl">
+              {item.titulo}
+            </h3>
+            <p class="mt-3 text-[14px] leading-relaxed text-tenue md:text-[15px]">
+              {item.descripcion}
+            </p>
+          </article>
+        );
+      })}
     </div>
   </div>
 </section>
 
 <style is:global>
   #por-que-elegirnos article { border-radius: var(--radius-lg); }
-  #por-que-elegirnos article > span:first-child { border-radius: var(--radius-md); }
+  #por-que-elegirnos article > span:nth-child(2) { border-radius: var(--radius-md); }
 </style>
