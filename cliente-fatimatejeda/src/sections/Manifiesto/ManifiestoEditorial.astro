@@ -1,0 +1,67 @@
+---
+/**
+ * Sección MANIFIESTO — variante editorial.
+ * Quote-style entre hero y servicios.
+ * Una frase serif italic gigante con atribución sutil.
+ * Inspirado en Tia, Aesop, Patagonia editorial sections.
+ *
+ * Lee de business.manifiesto?: { texto, atribucion?, eyebrow? }
+ * Si no existe, fallback usa business.tagline.
+ */
+import { business } from '../../config';
+
+const m = (business as any).manifiesto;
+const texto = m?.texto ?? business.tagline;
+const eyebrow = m?.eyebrow ?? 'Filosofía';
+const atribucion = m?.atribucion ?? business.nombre;
+---
+
+<section id="manifiesto" class="relative overflow-hidden bg-fondo py-28 md:py-40">
+  <div class="wrap">
+    <div class="mx-auto max-w-4xl text-center">
+      <div data-reveal="fade" class="mb-10 inline-flex items-center gap-3 md:mb-14">
+        <span class="block h-px w-10 bg-acento"></span>
+        <p class="font-mono text-[10px] font-medium uppercase tracking-[0.32em] text-tenue">
+          {eyebrow}
+        </p>
+        <span class="block h-px w-10 bg-acento"></span>
+      </div>
+
+      <blockquote
+        data-reveal="up"
+        style="--reveal-delay: 150ms;"
+        class="manifiesto-quote font-display font-normal italic leading-[1.1] tracking-tight text-texto"
+      >
+        <span aria-hidden="true" class="block text-acento">“</span>
+        {texto}
+        <span aria-hidden="true" class="block text-right text-acento">”</span>
+      </blockquote>
+
+      <div data-reveal="up" style="--reveal-delay: 320ms;" class="mt-12 flex items-center justify-center gap-3 md:mt-16">
+        <span class="block h-px w-12 bg-texto/30"></span>
+        <p class="font-mono text-[11px] font-medium uppercase tracking-[0.28em] text-tenue">
+          — {atribucion}
+        </p>
+        <span class="block h-px w-12 bg-texto/30"></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .manifiesto-quote {
+    font-size: clamp(1.75rem, 4vw, 3.25rem);
+  }
+
+  .manifiesto-quote :first-child {
+    margin-bottom: 0.25em;
+    font-size: 1.4em;
+    line-height: 0.4;
+  }
+
+  .manifiesto-quote :last-child {
+    margin-top: 0.15em;
+    font-size: 1.4em;
+    line-height: 0.4;
+  }
+</style>

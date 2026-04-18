@@ -1,0 +1,117 @@
+---
+/**
+ * Sección TRATAMIENTOS (variante DARK).
+ * Fondo oscuro (bg-texto) para romper el ritmo del sitio. Contraste fuerte.
+ */
+import { business } from '../../config';
+
+const tra = business.tratamientos;
+const waHref = `https://wa.me/${business.whatsapp}?text=${encodeURIComponent(business.whatsappMensaje)}`;
+---
+
+{tra && (
+  <section id="tratamientos" class="section-pad relative overflow-hidden bg-texto text-fondo">
+    <div
+      aria-hidden="true"
+      class="pointer-events-none absolute inset-0 opacity-[0.04]"
+      style="background-image: radial-gradient(rgb(var(--color-fondo)) 1.2px, transparent 1.2px); background-size: 32px 32px;"
+    ></div>
+
+    <div
+      aria-hidden="true"
+      class="pointer-events-none absolute -left-40 top-1/4 h-[32rem] w-[32rem] rounded-full opacity-30 blur-[160px]"
+      style="background-color: rgb(var(--color-primario));"
+    ></div>
+
+    <div class="wrap relative">
+      <div class="mb-16 flex items-baseline justify-between border-b border-fondo/10 pb-5" data-reveal="fade">
+        <p class="font-mono text-[11px] uppercase tracking-[0.18em] text-fondo/50">
+          {business.mostrarNumeros ? '02 · ' : ''}Tratamientos
+        </p>
+        <p class="font-mono text-sm tabular-nums text-fondo/50">{tra.lista.length} disponibles</p>
+      </div>
+
+      <div class="mb-16 grid items-end gap-8 lg:grid-cols-2">
+        <h2 data-reveal="left" class="font-display text-display font-semibold leading-[1.05] text-fondo">
+          {tra.titulo}
+        </h2>
+        {tra.descripcion && (
+          <p data-reveal="right" style="--reveal-delay: 200ms;" class="max-w-md text-base leading-relaxed text-fondo/70 md:text-lg">
+            {tra.descripcion}
+          </p>
+        )}
+      </div>
+
+      <div class="grid gap-4 md:grid-cols-2 md:gap-5">
+        {tra.lista.map((t, i) => (
+          <article
+            data-reveal={i % 2 === 0 ? 'left' : 'right'}
+            style={`--reveal-delay: ${i * 100}ms;`}
+            class="group relative flex flex-col overflow-hidden border border-fondo/10 bg-fondo/5 p-7 backdrop-blur-sm transition duration-500 hover:-translate-y-1 hover:border-fondo/25 hover:bg-fondo/10 md:p-9"
+            style="border-radius: var(--radius-md);"
+          >
+            <div class="mb-5 flex items-baseline justify-between gap-3">
+              <div class="min-w-0">
+                <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-fondo/40">
+                  T-{String(i + 1).padStart(2, '0')}
+                </p>
+                <h3 class="mt-2 font-display text-2xl font-semibold leading-tight text-fondo md:text-3xl">
+                  {t.nombre}
+                </h3>
+              </div>
+            </div>
+
+            <p class="text-sm leading-relaxed text-fondo/70 md:text-[15px]">
+              {t.descripcion}
+            </p>
+
+            {t.incluye && t.incluye.length > 0 && (
+              <ul class="mt-6 grid gap-1.5 sm:grid-cols-2">
+                {t.incluye.map((f) => (
+                  <li class="flex items-start gap-2 text-[13px] text-fondo/80">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="none" class="mt-1 h-3.5 w-3.5 shrink-0" style="color: rgb(var(--color-primario));">
+                      <path d="M4 10l4 4 8-8" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span>{f}</span>
+                  </li>
+                ))}
+              </ul>
+            )}
+
+            <div class="mt-auto flex items-end justify-between gap-4 border-t border-fondo/10 pt-6 mt-8">
+              <div>
+                <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-fondo/40">Desde</p>
+                <p class="mt-1 font-display text-3xl font-semibold tracking-tight text-fondo md:text-4xl">
+                  {t.desde}
+                </p>
+                {t.duracion && (
+                  <p class="mt-1 font-mono text-[11px] text-fondo/50">{t.duracion}</p>
+                )}
+              </div>
+              <a
+                href={waHref}
+                target="_blank"
+                rel="noopener"
+                class="inline-flex items-center gap-1.5 rounded-full border border-fondo/20 px-4 py-2 font-mono text-[11px] uppercase tracking-[0.15em] text-fondo transition hover:bg-fondo hover:text-texto group-hover:gap-2.5"
+              >
+                Agendar <span>→</span>
+              </a>
+            </div>
+          </article>
+        ))}
+      </div>
+
+      <div data-reveal="fade" style="--reveal-delay: 500ms;" class="mt-16 flex flex-col items-start justify-between gap-5 border-t border-fondo/10 pt-8 sm:flex-row sm:items-center">
+        <p class="max-w-md text-sm text-fondo/60">
+          Planes de pago sin intereses disponibles · Aceptamos seguros dentales · Primera consulta sin costo.
+        </p>
+        <a href={waHref} target="_blank" rel="noopener" class="btn-whatsapp shrink-0">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-4 w-4">
+            <path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24z" />
+          </svg>
+          Consulta sin costo
+        </a>
+      </div>
+    </div>
+  </section>
+)}

@@ -1,0 +1,198 @@
+---
+import { business, densidadTokens, bordesTokens, imagenFiltros } from '../config';
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title, description } = Astro.props;
+const pageTitle = title ?? business.seo.titulo;
+const pageDescription = description ?? business.seo.descripcion;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site).toString();
+const ogImageURL = new URL(business.seo.ogImagen, Astro.site).toString();
+
+const animacionesEntrada = business.animaciones?.entrada !== false;
+
+// Schema.org JSON-LD — se construye automáticamente desde el config.
+const diasES_EN: Record<string, string> = {
+  Lunes: 'Monday',
+  Martes: 'Tuesday',
+  Miércoles: 'Wednesday',
+  Jueves: 'Thursday',
+  Viernes: 'Friday',
+  Sábado: 'Saturday',
+  Domingo: 'Sunday',
+};
+const tipoNegocio = business.tipoNegocio ?? 'LocalBusiness';
+const sameAs = Object.values(business.redes).filter(Boolean) as string[];
+const openingHours = business.horarios
+  .filter((h) => !h.cerrado && h.apertura && h.cierre && diasES_EN[h.dia])
+  .map((h) => ({
+    '@type': 'OpeningHoursSpecification',
+    dayOfWeek: diasES_EN[h.dia],
+    opens: h.apertura,
+    closes: h.cierre,
+  }));
+const ldJson: Record<string, unknown> = {
+  '@context': 'https://schema.org',
+  '@type': tipoNegocio,
+  name: business.nombre,
+  description: business.descripcionCorta,
+  url: canonicalURL,
+  image: ogImageURL,
+  telephone: business.telefono,
+  email: business.email,
+  priceRange: '$$',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: business.direccion.calle,
+    addressLocality: business.direccion.ciudad,
+    addressRegion: business.direccion.estado,
+    postalCode: business.direccion.codigoPostal,
+    addressCountry: 'MX',
+  },
+};
+if (openingHours.length) ldJson.openingHoursSpecification = openingHours;
+if (sameAs.length) ldJson.sameAs = sameAs;
+
+const densidad = densidadTokens[business.densidad];
+const bordes = bordesTokens[business.bordes];
+const filtro = imagenFiltros[business.tratoImagen];
+
+const cssVars = `
+  --color-primario: ${business.colores.primario};
+  --color-secundario: ${business.colores.secundario};
+  --color-acento: ${business.colores.acento};
+  --color-texto: ${business.colores.texto};
+  --color-fondo: ${business.colores.fondo};
+  --color-superficie: ${business.colores.superficie};
+  --color-tenue: ${business.colores.tenue};
+  --color-linea: ${business.colores.linea};
+
+  --font-display: ${business.fuentes.display.familia};
+  --font-body: ${business.fuentes.body.familia};
+
+  --sec-py: ${densidad.sectionPadY};
+  --sec-py-md: ${densidad.sectionPadYMd};
+  --gap: ${densidad.gap};
+  --leading: ${densidad.leading};
+
+  --radius-sm: ${bordes.sm};
+  --radius-md: ${bordes.md};
+  --radius-lg: ${bordes.lg};
+  --radius-full: ${bordes.full};
+
+  --img-filter: ${filtro};
+`;
+
+const googleFontsUrl = `https://fonts.googleapis.com/css2?family=${business.fuentes.display.query}&family=${business.fuentes.body.query}&family=JetBrains+Mono:wght@400;500&display=swap`;
+
+const waHref = `https://wa.me/${business.whatsapp}?text=${encodeURIComponent(business.whatsappMensaje)}`;
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <title>{pageTitle}</title>
+    <meta name="description" content={pageDescription} />
+    <link rel="canonical" href={canonicalURL} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDescription} />
+    <meta property="og:image" content={ogImageURL} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="es_MX" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={pageDescription} />
+    <meta name="twitter:image" content={ogImageURL} />
+
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(ldJson)}></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href={googleFontsUrl} />
+
+    <style set:html={`:root { ${cssVars} }`}></style>
+
+    {business.analyticsId && (
+      <>
+        <script
+          async
+          src={`https://www.googletagmanager.com/gtag/js?id=${business.analyticsId}`}
+        ></script>
+        <script is:inline define:vars={{ gaId: business.analyticsId }}>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){ dataLayer.push(arguments); }
+          gtag('js', new Date());
+          gtag('config', gaId);
+        </script>
+      </>
+    )}
+  </head>
+  <body>
+    <slot />
+
+    <a
+      href={waHref}
+      target="_blank"
+      rel="noopener"
+      aria-label="Contactar por WhatsApp"
+      class="group fixed bottom-6 right-6 z-50 flex h-12 items-center gap-2.5 bg-texto pl-4 pr-5 text-fondo shadow-[0_20px_40px_-15px_rgba(0,0,0,0.3)] transition hover:bg-[#25D366] hover:pr-6"
+      style="border-radius: var(--radius-full);"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-4 w-4">
+        <path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24z" />
+      </svg>
+      <span class="font-mono text-[10px] font-medium uppercase tracking-[0.2em]">WhatsApp</span>
+    </a>
+    {!animacionesEntrada && (
+      <style is:inline>{`
+        [data-reveal] { opacity: 1 !important; transform: none !important; filter: none !important; clip-path: none !important; transition: none !important; }
+        .reveal-image > img, .reveal-image > div > img { transform: none !important; transition: none !important; }
+      `}</style>
+    )}
+    <script is:inline define:vars={{ animacionesEntrada }}>
+      (function () {
+        // Header scroll state (siempre activo)
+        const header = document.querySelector('[data-header]');
+        if (header) {
+          const setScrolled = () => {
+            header.classList.toggle('is-scrolled', window.scrollY > 20);
+          };
+          setScrolled();
+          window.addEventListener('scroll', setScrolled, { passive: true });
+        }
+
+        if (!animacionesEntrada) return;
+
+        if (!('IntersectionObserver' in window)) {
+          document.querySelectorAll('[data-reveal]').forEach((el) => el.classList.add('is-visible'));
+          return;
+        }
+        const io = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+                io.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.12, rootMargin: '0px 0px -60px 0px' }
+        );
+        document.querySelectorAll('[data-reveal]').forEach((el) => io.observe(el));
+      })();
+    </script>
+  </body>
+</html>

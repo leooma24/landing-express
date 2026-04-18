@@ -1,0 +1,167 @@
+---
+/**
+ * Variante MAGAZINE del Hero.
+ * Editorial-style: overlap entre headline serif gigante e imagen,
+ * label superior tipo "issue", caption en imagen, marquee de credenciales abajo.
+ * Inspirado en Mubi, Read.cv, Apartamento, NYT magazine spreads.
+ *
+ * Campos opcionales en config (ya existentes):
+ *   heroEyebrow?:  string
+ *   heroTitulo?:   string
+ *   heroTelefonoCta?: string
+ *   trustStrip?:   Array<{titulo, valor?, icono?}>  → se usa para el marquee
+ */
+import { business } from '../../config';
+
+const waHref = `https://wa.me/${business.whatsapp}?text=${encodeURIComponent(business.whatsappMensaje)}`;
+const telHref = `tel:${business.telefono.replace(/\s/g, '')}`;
+
+const tituloHero = business.heroTitulo ?? business.nombre;
+const eyebrow = business.heroEyebrow;
+const telCta = business.heroTelefonoCta ?? business.telefono;
+const trust = business.trustStrip ?? [];
+
+const issueLabel = `${business.direccion.ciudad.toUpperCase()} · MX · ${new Date().getFullYear()}`;
+const caption = `${business.nombre} — Editorial 01`;
+---
+
+<section id="hero" class="relative overflow-hidden bg-fondo">
+  <div class="wrap pt-24 pb-12 md:pt-28 md:pb-20">
+    {/* Top serial label */}
+    <div data-reveal="fade" class="mb-12 flex items-center gap-4 md:mb-16">
+      <span class="block h-px w-12 bg-texto/30"></span>
+      <p class="font-mono text-[10px] font-medium uppercase tracking-[0.28em] text-tenue">
+        Editorial · {issueLabel}
+      </p>
+      <span class="block h-px flex-1 bg-texto/15"></span>
+    </div>
+
+    <div class="relative grid items-end gap-12 lg:grid-cols-12 lg:gap-8">
+      {/* Headline column — overlaps image z-index */}
+      <div class="relative z-10 lg:col-span-7 lg:-mr-16">
+        {eyebrow && (
+          <p data-reveal="up" style="--reveal-delay: 80ms;" class="mb-8 font-display text-base italic text-tenue md:text-lg">
+            — {eyebrow}
+          </p>
+        )}
+
+        <h1
+          data-reveal="up"
+          style="--reveal-delay: 200ms;"
+          class="font-display font-semibold leading-[0.95] tracking-tight text-texto"
+          style-extra="font-size: clamp(3rem, 8vw, 6.5rem);"
+        >
+          {tituloHero.split(' ').map((word, i, arr) => {
+            const isAccent = i === Math.floor(arr.length / 2);
+            return (
+              <>
+                <span class={isAccent ? 'italic text-acento' : ''}>{word}</span>
+                {i < arr.length - 1 ? ' ' : ''}
+              </>
+            );
+          })}
+        </h1>
+
+        <p
+          data-reveal="up"
+          style="--reveal-delay: 360ms;"
+          class="mt-10 max-w-md text-base leading-relaxed text-tenue md:text-[17px]"
+        >
+          {business.descripcionCorta}
+        </p>
+
+        <div
+          data-reveal="up"
+          style="--reveal-delay: 500ms;"
+          class="mt-10 flex flex-wrap items-center gap-x-6 gap-y-4"
+        >
+          <a href={waHref} target="_blank" rel="noopener" class="group inline-flex items-center gap-3 bg-texto px-7 py-4 text-fondo transition hover:bg-primario" style="border-radius: var(--radius-full);">
+            <span class="text-[13px] font-medium tracking-wide">{business.heroCtaTexto}</span>
+            <span class="inline-block transition-transform duration-300 group-hover:translate-x-1">→</span>
+          </a>
+          <a href={telHref} class="group inline-flex items-center gap-2 text-[13px] font-medium text-texto">
+            <span class="link-underline">{telCta}</span>
+          </a>
+        </div>
+      </div>
+
+      {/* Image column — editorial frame with caption tag */}
+      <figure
+        data-reveal="image"
+        style="--reveal-delay: 350ms;"
+        class="reveal-image relative lg:col-span-5"
+      >
+        <div class="relative aspect-[4/5] overflow-hidden">
+          <img
+            src={business.heroImagen}
+            alt={business.nombre}
+            class="h-full w-full object-cover"
+            loading="eager"
+            fetchpriority="high"
+          />
+          {/* Frame line */}
+          <div class="pointer-events-none absolute inset-0 ring-1 ring-inset ring-texto/8"></div>
+        </div>
+
+        {/* Caption tag */}
+        <figcaption class="absolute -bottom-4 left-4 flex items-center gap-3 bg-fondo px-4 py-2.5 shadow-[0_12px_32px_-16px_rgba(0,0,0,0.18)]" style="border-radius: var(--radius-sm);">
+          <span class="block h-1.5 w-1.5 rounded-full bg-acento"></span>
+          <span class="font-mono text-[10px] uppercase tracking-[0.18em] text-texto">{caption}</span>
+        </figcaption>
+
+        {/* Floating numeric badge top-right */}
+        <span class="absolute right-4 top-4 inline-flex h-12 w-12 items-center justify-center bg-fondo/95 font-display text-base font-medium italic text-texto" style="border-radius: var(--radius-full);">
+          01
+        </span>
+      </figure>
+    </div>
+  </div>
+
+  {/* Marquee credentials strip */}
+  {trust.length > 0 && (
+    <div class="relative border-y border-linea bg-superficie/40 py-5 overflow-hidden">
+      <div class="marquee-track flex gap-12 whitespace-nowrap">
+        {[...Array(3)].map(() => (
+          <div class="flex shrink-0 items-center gap-12">
+            {trust.map((item) => (
+              <div class="flex shrink-0 items-center gap-3">
+                <span class="font-display text-base italic text-acento">×</span>
+                {item.valor && (
+                  <span class="font-display text-lg font-semibold tracking-tight text-texto">
+                    {item.valor}
+                  </span>
+                )}
+                <span class="font-mono text-[10px] uppercase tracking-[0.22em] text-tenue">
+                  {item.titulo}
+                </span>
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
+    </div>
+  )}
+</section>
+
+<style>
+  /* font-size clamp via inline style fallback for Astro processing */
+  h1[style-extra] {
+    font-size: clamp(3rem, 8vw, 6.5rem);
+  }
+
+  .marquee-track {
+    animation: marquee 38s linear infinite;
+    will-change: transform;
+  }
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-33.333%); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-track {
+      animation: none;
+    }
+  }
+</style>

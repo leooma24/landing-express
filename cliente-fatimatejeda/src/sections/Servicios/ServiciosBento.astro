@@ -1,0 +1,102 @@
+---
+/**
+ * Variante BENTO de Servicios.
+ * Grid asimétrico tipo bento (Apple-style):
+ *   - 1 card destacada (2x2)
+ *   - 2 cards medianas (2x1)
+ *   - 3 cards pequeñas (1x1)
+ * Numeración serif italic, hover con flecha animada y lift.
+ */
+import { business } from '../../config';
+
+const items = business.servicios.slice(0, 6);
+// Tamaño por índice — bento layout
+const sizeClasses = [
+  'md:col-span-2 md:row-span-2',  // 0 — featured
+  'md:col-span-2',                  // 1
+  'md:col-span-2',                  // 2
+  'md:col-span-2',                  // 3
+  'md:col-span-2',                  // 4
+  'md:col-span-2',                  // 5
+];
+---
+
+<section id="servicios" class="section-pad bg-superficie/30">
+  <div class="wrap">
+    {/* Section header: editorial divider with serif label */}
+    <div class="mb-20 grid items-end gap-8 md:grid-cols-12 md:gap-12">
+      <div data-reveal="up" class="md:col-span-3">
+        <p class="font-mono text-[10px] font-medium uppercase tracking-[0.28em] text-tenue">
+          {business.mostrarNumeros ? '01 — ' : ''}Servicios
+        </p>
+        <p class="mt-3 font-mono text-[11px] tabular-nums text-tenue">
+          /{String(items.length).padStart(2, '0')}
+        </p>
+      </div>
+      <h2
+        data-reveal="up"
+        style="--reveal-delay: 120ms;"
+        class="font-display font-semibold leading-[0.98] tracking-tight text-texto md:col-span-6"
+        style-extra="font-size: clamp(2.25rem, 4.5vw, 4rem);"
+      >
+        Especialidades pensadas para
+        <span class="italic text-acento">cada etapa</span>
+        de tu sonrisa.
+      </h2>
+      <p
+        data-reveal="up"
+        style="--reveal-delay: 240ms;"
+        class="text-sm leading-relaxed text-tenue md:col-span-3 md:text-[15px]"
+      >
+        Desde el primer diagnóstico hasta los retenedores finales, cada tratamiento se diseña en consulta con la doctora.
+      </p>
+    </div>
+
+    {/* Bento grid */}
+    <div class="grid grid-cols-1 gap-3 md:grid-cols-6 md:auto-rows-[minmax(220px,auto)]">
+      {items.map((s, i) => {
+        const featured = i === 0;
+        return (
+          <article
+            data-reveal="up"
+            style={`--reveal-delay: ${i * 70}ms;`}
+            class={`group relative flex flex-col overflow-hidden border border-linea bg-fondo p-7 transition-all duration-500 hover:border-texto/30 hover:shadow-[0_30px_70px_-30px_rgba(0,0,0,0.18)] md:p-9 ${sizeClasses[i] ?? 'md:col-span-2'}`}
+            style-extra="border-radius: var(--radius-lg);"
+          >
+            {/* Number — top left, serif italic */}
+            <span class="font-display text-2xl font-medium italic text-tenue/70 transition group-hover:text-acento md:text-3xl">
+              {String(i + 1).padStart(2, '0')}
+            </span>
+
+            {/* Title and description */}
+            <div class={`mt-auto pt-12 ${featured ? 'md:pt-24' : 'md:pt-16'}`}>
+              <h3 class={`font-display font-semibold leading-[1.05] tracking-tight text-texto ${featured ? 'text-3xl md:text-[2.5rem]' : 'text-xl md:text-[1.6rem]'}`}>
+                {s.titulo}
+              </h3>
+              <p class={`mt-4 leading-relaxed text-tenue ${featured ? 'max-w-md text-[15px] md:text-base' : 'text-[14px] md:text-[15px]'}`}>
+                {s.descripcion}
+              </p>
+            </div>
+
+            {/* Hover arrow indicator */}
+            <span class="absolute bottom-6 right-7 inline-flex h-9 w-9 items-center justify-center rounded-full border border-linea text-texto transition-all duration-500 group-hover:border-texto group-hover:bg-texto group-hover:text-fondo md:bottom-8 md:right-9">
+              <span class="inline-block transition-transform duration-300 group-hover:translate-x-0.5">→</span>
+            </span>
+
+            {/* Featured-only: subtle accent line top */}
+            {featured && (
+              <span class="absolute left-0 top-0 h-px w-16 bg-acento"></span>
+            )}
+          </article>
+        );
+      })}
+    </div>
+  </div>
+</section>
+
+<style>
+  article h2[style-extra],
+  section h2[style-extra] {
+    font-size: clamp(2.25rem, 4.5vw, 4rem);
+  }
+</style>
